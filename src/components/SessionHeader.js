@@ -1,6 +1,6 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
-import auth from '../auth'
+import auth from '../lib/auth'
 
 class SessionHeader extends React.Component {
   render () {

@@ -5,7 +5,7 @@ import {
   Route
 } from 'react-router-dom'
 
-import auth from './auth'
+import auth from './lib/auth'
 import LandingScreen from './screens/Landing'
 import LoginScreen from './screens/Login'
 import TravelsListScreen from './screens/TravelsList'

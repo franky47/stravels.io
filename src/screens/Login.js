@@ -1,8 +1,8 @@
 import React from 'react'
 import { Redirect, withRouter } from 'react-router'
-import { qsEncode, qsDecode } from '../utility'
+import { qsEncode, qsDecode } from '../lib/utility'
 import base64 from '../lib/base64'
-import auth from '../auth'
+import auth from '../lib/auth'
 
 class Login extends React.Component {
   state = {
