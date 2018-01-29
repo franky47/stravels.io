@@ -1,0 +1,35 @@
+{
+  "name": "stravels.io",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.17.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "fix:surge-prod": "mv ./build/index.html ./build/200.html",
+    "deploy:staging": "surge -d https://staging.stravels.io -p ./build",
+    "deploy:prod": "surge -d https://stravels.io -p ./build",
+    "release:staging": "yarn build && yarn fix:surge-prod && yarn deploy:staging",
+    "release": "yarn build && yarn fix:surge-prod && yarn deploy"
+  },
+  "devDependencies": {
+    "surge": "^0.19.0"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "test",
+      "it",
+      "URL",
+      "fetch"
+    ]
+  }
+}
