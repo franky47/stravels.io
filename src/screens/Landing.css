@@ -1,0 +1,25 @@
+section.hero {
+  background-color: #4CAF50; /* Material Green 500 */
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 75vh;
+}
+
+section.hero .title {
+  font-family: "Heebo";
+  font-weight: 100;
+  font-size: 4rem;
+}
+
+section.hero .title img {
+  vertical-align: middle;
+  margin-top: -10px;
+}
+
+section.hero h1 {
+  font-family: "Heebo";
+  font-weight: 100;
+}
