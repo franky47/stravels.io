@@ -11,8 +11,6 @@ import LoginScreen from './screens/Login'
 import TravelsListScreen from './screens/TravelsList'
 import TravelScreen from './screens/Travel'
 
-import './App.css'
-
 const AuthRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => (
     auth.isAuthenticated ? (
