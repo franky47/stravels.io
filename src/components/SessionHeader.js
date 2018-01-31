@@ -10,16 +10,18 @@ class SessionHeader extends React.Component {
   render () {
     if (!auth.isAuthenticated) return null
 
-    const { meQuery } = this.props
-    if (meQuery.loading) {
+    const { data } = this.props
+    if (data.loading) {
       return null
     }
+    console.log(data)
+    const { name, profilePicture } = data.me
     return (
       <header className='session'>
         <Link to='/profile'>
           <img
-            src={meQuery.me.profilePicture}
-            alt={`Profile for ${meQuery.me.name}`}
+            src={profilePicture}
+            alt={`Profile for ${name}`}
             className='profilePicture'
           />
         </Link>
@@ -34,7 +36,7 @@ class SessionHeader extends React.Component {
   // }
 }
 
-const ME_QUERY = gql`
+const query = gql`
 query {
   me {
     name
@@ -43,4 +45,4 @@ query {
 }
 `
 
-export default graphql(ME_QUERY, { name: 'meQuery' })(withRouter(SessionHeader))
+export default graphql(query)(withRouter(SessionHeader))
