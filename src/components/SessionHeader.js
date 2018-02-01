@@ -14,7 +14,6 @@ class SessionHeader extends React.Component {
     if (data.loading) {
       return null
     }
-    console.log(data)
     const { name, profilePicture } = data.me
     return (
       <header className='session'>
