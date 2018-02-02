@@ -14,13 +14,13 @@ class SessionHeader extends React.Component {
     if (data.loading) {
       return null
     }
-    const { name, profilePicture } = data.me
+    const { fullName, profilePicture } = data.me
     return (
       <header className='session'>
         <Link to='/profile'>
           <img
             src={profilePicture}
-            alt={`Profile for ${name}`}
+            alt={`Profile for ${fullName}`}
             className='profilePicture'
           />
         </Link>
@@ -38,7 +38,7 @@ class SessionHeader extends React.Component {
 const query = gql`
 query {
   me {
-    name
+    fullName
     profilePicture
   }
 }
