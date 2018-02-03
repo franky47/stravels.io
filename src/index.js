@@ -5,6 +5,7 @@ import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
 import { InMemoryCache } from 'apollo-cache-inmemory'
+import { AppContainer } from 'react-hot-loader'
 import auth from './lib/auth'
 
 // Root styling
@@ -33,10 +34,24 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 })
 
-ReactDOM.render(
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>,
-  document.getElementById('root')
-)
+const render = Component => {
+  ReactDOM.render(
+    <ApolloProvider client={client}>
+      <AppContainer>
+        <App />
+      </AppContainer>
+    </ApolloProvider>,
+    document.getElementById('root')
+  )
+}
+
+render(App)
+
+// Webpack Hot Module Replacement API
+if (module.hot) {
+  module.hot.accept('./App', () => {
+    render(App)
+  })
+}
+
 registerServiceWorker()
