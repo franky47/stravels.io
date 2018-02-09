@@ -16,6 +16,7 @@ import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 
 const httpLink = new HttpLink({
+  // uri: 'http://localhost:3000/graphql'
   uri: 'https://stravels-graphql.now.sh/graphql'
 })
 
@@ -24,7 +25,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: auth.token ? `Bearer ${auth.token}` : ''
+      authorization: auth.jwt ? `Bearer ${auth.jwt}` : undefined
     }
   }
 })

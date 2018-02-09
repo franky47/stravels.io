@@ -3,6 +3,8 @@ import { Redirect, withRouter } from 'react-router'
 import { qsEncode, qsDecode } from '../lib/utility'
 import base64 from '../lib/base64'
 import auth from '../lib/auth'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
 
 class Login extends React.Component {
   state = {
@@ -45,7 +47,7 @@ class Login extends React.Component {
     }
     return url + '?' + qsEncode(query)
   }
-  _resumeAuthFlow = async () => {
+  _resumeAuthFlow = () => {
     // Extract auth code & state traversal from URL
     const { code, state } = qsDecode(this.props.location.search)
     if (!state || !code) {
@@ -55,15 +57,24 @@ class Login extends React.Component {
     const from = JSON.parse(base64.decode(state))
     this.setState({ from })
 
-    // Perform OAuth token exchange & authenticate
-    const token = await auth.exchangeToken(code)
-    await auth.authenticate(token)
-
-    // Activate redirection
-    this.setState({
-      redirect: true
+    this.props.loginWithCode({
+      variables: {
+        code
+      }
+    }).then(({ data }) => {
+      auth.authenticate(data.jwt)
+      // Activate redirection
+      this.setState({
+        redirect: true
+      })
     })
   }
 }
 
-export default withRouter(Login)
+const mutation = gql`
+mutation LoginWithCode($code: AuthenticationCode!) {
+  jwt: loginWithCode(code: $code)
+}
+`
+
+export default graphql(mutation, { name: 'loginWithCode' })(withRouter(Login))
