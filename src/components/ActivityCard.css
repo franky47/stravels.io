@@ -1,0 +1,6 @@
+.activity-card {
+  background-color: rgb(198, 207, 198);
+}
+.activity-card.selected {
+  background-color: aqua;
+}

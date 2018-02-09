@@ -10,6 +10,7 @@ import LandingScreen from './screens/Landing'
 import LoginScreen from './screens/Login'
 import TravelsListScreen from './screens/TravelsList'
 import TravelScreen from './screens/Travel'
+import ActivitiesScreen from './screens/Activities'
 
 const AuthRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => (
@@ -40,6 +41,7 @@ class App extends React.Component {
 
           { /* Authenticated Routes */ }
           <AuthRoute exact path='/travels' component={TravelsListScreen} />
+          <AuthRoute exact path='/activities' component={ActivitiesScreen} />
           <AuthRoute path='/travels/:id' component={TravelScreen} />
         </main>
       </Router>
