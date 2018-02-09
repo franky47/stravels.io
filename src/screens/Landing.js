@@ -6,7 +6,7 @@ import './Landing.css'
 
 export default () => {
   if (auth.isAuthenticated) {
-    return <Redirect to='/travels' />
+    return <Redirect to='/activities' />
   }
   return (
     <React.Fragment>
@@ -20,7 +20,7 @@ export default () => {
           Stravels
         </h2>
         <h1>Share your travels made with Strava</h1>
-        <Link to='/travels'>Get started</Link>
+        <Link to='/activities'>Get started</Link>
       </section>
       <section className='mobile'>
         <p className='description'><i>Coming soon for Android and iOS</i></p>
