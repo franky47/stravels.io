@@ -6,6 +6,8 @@ import { HttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { AppContainer } from 'react-hot-loader'
+import { EventEmitter } from 'events'
+
 import auth from './lib/auth'
 
 // Root styling
@@ -35,11 +37,13 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 })
 
+const serviceWorkerEvents = new EventEmitter()
+
 const render = Component => {
   ReactDOM.render(
     <ApolloProvider client={client}>
       <AppContainer>
-        <App />
+        <App serviceWorkerEvents={serviceWorkerEvents} />
       </AppContainer>
     </ApolloProvider>,
     document.getElementById('root')
@@ -55,4 +59,4 @@ if (module.hot) {
   })
 }
 
-registerServiceWorker()
+registerServiceWorker(serviceWorkerEvents)
