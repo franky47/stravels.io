@@ -41,10 +41,6 @@ class App extends React.Component {
     })
   }
 
-  componentWillUnmount () {
-    this.props.serviceWorkerEvents.off('updateAvailable')
-  }
-
   render () {
     return (
       <Router>
