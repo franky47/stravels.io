@@ -29,7 +29,7 @@ class Activities extends React.Component {
 
 const query = gql`
 query GetActivities($before: Date, $after: Date) {
-  activities: getActivities(before: $before, after: $after) {
+  activities(before: $before, after: $after) {
     id
     title
     distance(unit: KILOMETERS)
