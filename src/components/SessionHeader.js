@@ -8,7 +8,7 @@ import './SessionHeader.css'
 
 class SessionHeader extends React.Component {
   render () {
-    if (!auth.isAuthenticated) return null
+    if (!auth.authenticated) return null
 
     const { data } = this.props
     if (data.loading) {

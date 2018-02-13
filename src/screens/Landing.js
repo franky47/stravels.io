@@ -5,7 +5,7 @@ import auth from '../lib/auth'
 import './Landing.css'
 
 export default () => {
-  if (auth.isAuthenticated) {
+  if (auth.authenticated) {
     return <Redirect to='/activities' />
   }
   return (

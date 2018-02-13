@@ -42,11 +42,16 @@ export default {
   get jwt () {
     return authState.jwt
   },
-  get isTokenValid () {
+  get tokenIsAboutToExpire () {
+    const now = Date.now() * 0.001
+    const deadline = 3600 // 1 hour
+    return authState.jwt !== null && now < authState.exp && authState.exp < now + deadline
+  },
+  get tokenIsValid () {
     const now = Date.now() * 0.001
     return authState.jwt !== null && authState.exp > now
   },
-  get isAuthenticated () {
+  get authenticated () {
     return authState.jwt !== null
   }
 }

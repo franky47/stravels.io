@@ -15,7 +15,7 @@ import UpdateNotifier from './components/UpdateNotifier'
 
 const AuthRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => (
-    auth.isAuthenticated ? (
+    auth.authenticated ? (
       <Component {...props} />
     ) : (
       <Redirect to={{
