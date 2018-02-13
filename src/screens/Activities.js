@@ -1,22 +1,7 @@
 import React from 'react'
-import ActivityCard from '../components/ActivityCard'
+import ActivityList from '../components/ActivityList'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-
-const ActivitySelector = ({ activity, selected, toggleState }) => {
-  const toggle = () => toggleState(activity.id)
-  return (
-    <React.Fragment >
-      <input type='checkbox' checked={selected} onChange={toggle} />
-      <ActivityCard
-        title={activity.name}
-        selected={selected}
-        onClick={toggle}
-        {...activity}
-      />
-    </React.Fragment>
-  )
-}
 
 class Activities extends React.Component {
   state = {
@@ -25,23 +10,11 @@ class Activities extends React.Component {
 
   render () {
     const activities = this.props.data.loading ? [] : this.props.data.activities
-    return (
-      <ul>
-        { activities.map(this._renderActivity) }
-      </ul>
-    )
+      .map(a => ({ ...a, selected: this.state.selected.has(a.id) }))
+    return <ActivityList items={activities} onItemSelect={this._onItemSelect} />
   }
 
-  _renderActivity = (activity) => (
-    <li key={activity.id}>
-      <ActivitySelector
-        activity={activity}
-        selected={this.state.selected.has(activity.id)}
-        toggleState={this._toggleState}
-      />
-    </li>
-  )
-  _toggleState = (id) => {
+  _onItemSelect = (id) => {
     const selected = new Set([...this.state.selected]) // Make a copy
     if (selected.has(id)) {
       selected.delete(id)
@@ -60,6 +33,8 @@ query GetActivities($before: Date, $after: Date) {
     id
     title
     distance(unit: KILOMETERS)
+    date(tz: "Europe/Paris")
+    # todo: add thumbnailUrl
     elevation
   }
 }

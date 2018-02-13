@@ -1,6 +1,40 @@
 .activity-card {
-  background-color: rgb(198, 207, 198);
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-column-gap: 10px;
+  grid-template-areas:
+    "img title"
+    "img meta";
+  padding: 5px;
+  transition: all 0.1s ease-in-out;
+  border: solid 0px limegreen;
 }
 .activity-card.selected {
-  background-color: aqua;
+  border-left-width: 4px;
+  border-radius: 4px;
+  background-color: rgba(44, 214, 44, 0.05);
+}
+
+.activity-card img {
+  border-radius: 4px;
+  grid-area: img;
+}
+.activity-card .title {
+  margin: 0.5rem 0 0;
+  grid-area: title;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activity-card .meta {
+  grid-area: meta;
+}
+
+.meta span {
+  margin-right: 1.5rem;
+  font-weight: 300;
+  color: #888;
 }
