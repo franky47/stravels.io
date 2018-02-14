@@ -18,8 +18,7 @@ import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 
 const httpLink = new HttpLink({
-  // uri: 'http://localhost:3000/graphql'
-  uri: 'https://stravels-graphql.now.sh/graphql'
+  uri: process.env.NODE_ENV === 'development' ? 'http://localhost:3000/graphql' : 'https://stravels-graphql.now.sh/graphql'
 })
 
 const authLink = setContext((_, { headers }) => {
