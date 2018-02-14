@@ -62,7 +62,8 @@ class Login extends React.Component {
         code
       }
     }).then(({ data }) => {
-      auth.authenticate(data.jwt)
+      const { jwt, exp } = data.payload
+      auth.authenticate(jwt, exp)
       // Activate redirection
       this.setState({
         redirect: true
@@ -73,7 +74,10 @@ class Login extends React.Component {
 
 const mutation = gql`
 mutation LoginWithCode($code: AuthenticationCode!) {
-  jwt: loginWithCode(code: $code)
+  payload: loginWithCode(code: $code) {
+    jwt
+    exp
+  }
 }
 `
 

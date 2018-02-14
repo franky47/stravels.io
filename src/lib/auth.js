@@ -1,5 +1,3 @@
-import jsonwebtoken from 'jsonwebtoken'
-
 const storeToLocalStorage = (jwt = null, exp = null) => {
   if (jwt === null) {
     window.localStorage.removeItem('stravels-jwt')
@@ -28,10 +26,9 @@ export default {
     authState.jwt = jwt
     authState.exp = exp ? parseFloat(exp) : null
   },
-  authenticate: (jwt) => {
-    const { exp } = jsonwebtoken.decode(jwt)
+  authenticate: (jwt, exp) => {
     authState.jwt = jwt
-    authState.exp = parseFloat(exp)
+    authState.exp = exp
     storeToLocalStorage(jwt, exp)
   },
   logout: () => {
