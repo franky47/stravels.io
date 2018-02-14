@@ -62,11 +62,9 @@ class Login extends React.Component {
         code
       }
     }).then(({ data }) => {
-      const { jwt, exp } = data.payload
-      auth.authenticate(jwt, exp)
-      // Activate redirection
+      auth.authenticate(data.jwt)
       this.setState({
-        redirect: true
+        redirect: true // Activate redirection
       })
     })
   }
@@ -74,11 +72,11 @@ class Login extends React.Component {
 
 const mutation = gql`
 mutation LoginWithCode($code: AuthenticationCode!) {
-  payload: loginWithCode(code: $code) {
-    jwt
-    exp
-  }
+  jwt: loginWithCode(code: $code)
 }
 `
+const withGraphQL = graphql(mutation, {
+  name: 'loginWithCode'
+})
 
-export default graphql(mutation, { name: 'loginWithCode' })(withRouter(Login))
+export default withGraphQL(withRouter(Login))
