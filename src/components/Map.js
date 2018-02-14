@@ -1,29 +1,35 @@
 import React from 'react'
 import mapboxgl from 'mapbox-gl'
 import Polyline from '@mapbox/polyline'
-import color from 'color-convert'
+// import color from 'color-convert'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 mapboxgl.accessToken = 'pk.eyJ1IjoiZnJhbmt5NDciLCJhIjoiY2oxZXp4a2FvMDAxZzJwcW50dmlyb292cyJ9.fL0Ze14CVgf2LcdM-Kmv7w'
 
 const mapStyle = {
-  margin: '10px',
   display: 'block',
-  height: '800px'
+  height: '100%',
+  width: '100%'
 }
 
 const colorize = (index, base = 0) => {
-  const numSegments = 4
-  const h = (base + (index % numSegments) * 360 / numSegments) % 360
-  return `#${color.hsl.hex(h, 80, 65)}`
+  // const numSegments = 4
+  // const h = (base + (index % numSegments) * 360 / numSegments) % 360
+  return index % 2 === 0 ? `#ff8f00` : '#f44336' // `${color.hsl.hex(h, 80, 65)}`
 }
 
 export default class Map extends React.Component {
+  state = {
+    currentLayers: new Set()
+  }
+
   componentDidMount () {
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
+      // style: 'mapbox://styles/mapbox/light-v9'
       style: 'mapbox://styles/mapbox/outdoors-v10'
     })
+    console.log('map mounted')
 
     this.map.on('load', () => {
       this._addShading()

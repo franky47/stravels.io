@@ -18,6 +18,8 @@
 
 .activity-card img {
   border-radius: 4px;
+  width: 70px;
+  height: 70px;
   grid-area: img;
 }
 .activity-card .title {

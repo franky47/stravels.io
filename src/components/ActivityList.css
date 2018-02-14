@@ -2,4 +2,5 @@
   display: grid;
   padding: 5px;
   grid-gap: 5px;
+  overflow: scroll;
 }
