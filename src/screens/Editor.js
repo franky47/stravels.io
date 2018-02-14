@@ -1,22 +1,13 @@
 import React from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Redirect } from 'react-router-dom'
 
 // Components
 import ActivityList from '../components/ActivityList'
 import Map from '../components/Map'
+import RoR from '../components/RefreshOrRedirect'
 
 import './Editor.css'
-
-const RedirectOnError = (path = '/') => Component => (props) => {
-  if (!props.data.loading && props.data.error) {
-    console.log(`Error found, redirecting to ${path}`)
-    return <Redirect to={path} />
-  } else {
-    return <Component {...props} />
-  }
-}
 
 class Editor extends React.Component {
   state = {
@@ -26,6 +17,8 @@ class Editor extends React.Component {
   render () {
     if (this.props.data.loading) {
       return <p>Loading...</p>
+    } else if (this.props.data.error) {
+      return null
     }
 
     const activities = this.props.data.activities
@@ -72,4 +65,7 @@ query GetActivities($before: Date, $after: Date) {
   }
 }
 `
-export default graphql(query)(RedirectOnError('/login')(Editor))
+
+const withGraphQL = graphql(query)
+
+export default withGraphQL(RoR(Editor))
