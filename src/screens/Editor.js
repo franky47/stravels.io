@@ -19,10 +19,10 @@ class Editor extends React.Component {
 
     const polylines = activities
       .filter(a => a.selected)
-      .map(a => ({
-        id: a.id,
-        encoded: a.polyline
-      }))
+      .reduce((acc, a) => ({
+        ...acc,
+        [a.id]: a.polyline
+      }), {})
 
     return (
       <div className='editor'>
