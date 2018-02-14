@@ -6,6 +6,9 @@ import auth from '../lib/auth'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
+import logo from '../resources/stravels-logo.svg'
+import './Login.css'
+
 class Login extends React.Component {
   state = {
     redirect: false,
@@ -24,10 +27,11 @@ class Login extends React.Component {
       return <Redirect to={from} />
     }
     return (
-      <React.Fragment>
-        <h1>Login</h1>
+      <section className='login'>
+        <img src={logo} alt='logo' />
+        <h1>Stravels</h1>
         <a href={this._getRequestURL()}>Login with Strava</a>
-      </React.Fragment>
+      </section>
     )
   }
 
