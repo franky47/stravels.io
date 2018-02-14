@@ -12,7 +12,7 @@ import TravelsListScreen from './screens/TravelsList'
 import TravelScreen from './screens/Travel'
 import ActivitiesScreen from './screens/Activities'
 import UpdateNotifier from './components/UpdateNotifier'
-import Header from './components/Header'
+// import Header from './components/Header'
 import Editor from './screens/Editor'
 
 const AuthRoute = ({ component: Component, ...rest }) => (
@@ -47,7 +47,7 @@ class App extends React.Component {
     return (
       <Router>
         <main>
-          <Header />
+          {/* <Header /> */}
           { this.state.updateAvailable && <UpdateNotifier /> }
 
           { /* Public Routes */ }
