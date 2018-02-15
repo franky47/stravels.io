@@ -1,15 +1,47 @@
 /* @import url('https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,700');
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:100,200,300,400,600'); */
-@import url('https://fonts.googleapis.com/css?family=Heebo:100,300'); /* Supported: 100 300 400 500 700 800 900 */
+@import url('https://fonts.googleapis.com/css?family=Heebo:100,300,400,500'); /* Supported: 100 300 400 500 700 800 900 */
+
+/* -- Viewport Setup -- */
 
 html, body {
   margin: 0;
   padding: 0;
-  font-family: "Heebo";
 }
 
 /* Take all the vertical space, don't scroll */
 html, body {
   height: 100%;
   overflow: hidden;
+}
+
+/* -- Typography -- */
+
+html, body {
+  /* Prevent iOS text size adjust after orientation change, without disabling
+   * user zoom. */
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  font-size: 15px;
+}
+
+/* html is set to 62.5% so that all the REM measurements are based on 10px sizing.
+ So basically 1.5rem = 15px :) */
+html {
+  font-size: 62.5%;
+}
+body {
+  font-size: 1.5em; /* currently ems cause chrome bug misinterpreting rems on body element */
+  line-height: 1.6;
+  font-weight: 300;
+  font-family: "Heebo", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+p {
+  margin-top: 0;
 }

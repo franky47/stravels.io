@@ -24,6 +24,7 @@
 }
 .activity-card .title {
   margin: 0.5rem 0 0;
+  font-weight: 400;
   grid-area: title;
   color: #333;
   white-space: nowrap;
