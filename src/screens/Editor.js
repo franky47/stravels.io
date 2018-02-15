@@ -1,13 +1,27 @@
 import React from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
+import Loadable from 'react-loadable'
 
 // Components
 import ActivityList from '../components/ActivityList'
-import Map from '../components/Map'
+import Spinner from '../components/Spinner'
 import RoR from '../components/RefreshOrRedirect'
 
 import './Editor.css'
+
+const LoadableMap = Loadable({
+  loader: () => import('../components/Map'),
+  loading ({ error, pastDelay }) {
+    if (error) {
+      return <div>Error: {error.message}</div>
+    } else if (pastDelay) {
+      return <Spinner />
+    } else {
+      return null
+    }
+  }
+})
 
 class Editor extends React.Component {
   state = {
@@ -15,13 +29,12 @@ class Editor extends React.Component {
   }
 
   render () {
-    if (this.props.data.loading) {
-      return <p>Loading...</p>
-    } else if (this.props.data.error) {
-      return null
+    let activities = []
+    if (!this.props.data.loading && !this.props.error) {
+      activities = this.props.data.activities
     }
 
-    const activities = this.props.data.activities
+    activities = activities
       .map(a => ({ ...a, selected: this.state.selected.has(a.id) }))
 
     const polylines = activities
@@ -33,8 +46,8 @@ class Editor extends React.Component {
 
     return (
       <div className='editor'>
-        <ActivityList items={activities} onItemSelect={this._onItemSelect} />
-        <Map polylines={polylines} />
+        <ActivityList items={activities} onItemSelect={this._onItemSelect} loading={this.props.data.loading} />
+        <LoadableMap polylines={polylines} />
       </div>
     )
   }

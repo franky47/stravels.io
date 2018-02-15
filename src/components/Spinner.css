@@ -1,0 +1,20 @@
+.spinner {
+  width: 20px;
+  height: 20px;
+  margin: 20px auto;
+  border-left: 3px solid #eee;
+  border-right: 3px solid #eee;
+  border-bottom: 3px solid #eee;
+  border-top: 3px solid limegreen;
+  border-radius: 100%;
+  animation: spinnerAnimation 0.8s infinite linear;
+}
+
+@keyframes spinnerAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(1turn);
+  }
+}
