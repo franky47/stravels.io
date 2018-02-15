@@ -63,7 +63,9 @@ class HocBody extends React.Component {
     if (renderRedirect) {
       return <Redirect to='/login' />
     }
-    return null
+    return (
+      <p>Loading...</p>
+    )
   }
 }
 
