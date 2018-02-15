@@ -7,10 +7,7 @@ import Spinner from './Spinner'
 
 const mutation = gql`
 mutation RefreshJwt {
-  payload: refreshToken {
-    jwt
-    exp
-  }
+  jwt: refreshToken
 }
 `
 const withGraphQLMutation = graphql(mutation, {
