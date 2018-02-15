@@ -5,8 +5,9 @@ import base64 from '../lib/base64'
 import auth from '../lib/auth'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
+import Logo from '../components/Logo'
+import Spinner from '../components/Spinner'
 
-import logo from '../resources/stravels-logo.svg'
 import './Login.css'
 
 class Login extends React.Component {
@@ -14,7 +15,8 @@ class Login extends React.Component {
     redirect: false,
     from: {
       pathname: '/'
-    }
+    },
+    loading: false
   }
 
   componentDidMount () {
@@ -22,15 +24,21 @@ class Login extends React.Component {
   }
 
   render () {
-    const { redirect, from } = this.state
+    const { redirect, from, loading } = this.state
     if (redirect) {
       return <Redirect to={from} />
     }
     return (
       <section className='login'>
-        <img src={logo} alt='logo' />
+        <Logo size={80} />
         <h1>Stravels</h1>
-        <a href={this._getRequestURL()}>Login with Strava</a>
+        {
+          loading ? <Spinner size={47} thickness={4} /> : (
+            <a href={this._getRequestURL()} className='loading'>
+              Login with Strava
+            </a>
+          )
+        }
       </section>
     )
   }
@@ -60,6 +68,7 @@ class Login extends React.Component {
     // Extract previous location from state traversal
     const from = JSON.parse(base64.decode(state))
     this.setState({ from })
+    setTimeout(() => this.setState({ loading: true }), 200)
 
     this.props.loginWithCode({
       variables: {
@@ -68,6 +77,7 @@ class Login extends React.Component {
     }).then(({ data }) => {
       auth.authenticate(data.jwt)
       this.setState({
+        loading: false,
         redirect: true // Activate redirection
       })
     })
