@@ -1,11 +1,6 @@
 .spinner {
-  width: 20px;
-  height: 20px;
   margin: 20px auto;
-  border-left: 3px solid #eee;
-  border-right: 3px solid #eee;
-  border-bottom: 3px solid #eee;
-  border-top: 3px solid limegreen;
+  border-style: solid;
   border-radius: 100%;
   animation: spinnerAnimation 0.8s infinite linear;
 }
