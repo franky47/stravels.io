@@ -2,7 +2,8 @@ import React from 'react'
 import mapboxgl from 'mapbox-gl'
 import Polyline from '@mapbox/polyline'
 
-import 'mapbox-gl/dist/mapbox-gl.css'
+import './Map.css'
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiZnJhbmt5NDciLCJhIjoiY2oxZXp4a2FvMDAxZzJwcW50dmlyb292cyJ9.fL0Ze14CVgf2LcdM-Kmv7w'
 
 const mapStyle = {
