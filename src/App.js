@@ -8,12 +8,8 @@ import {
 import auth from './lib/auth'
 import LandingScreen from './screens/Landing'
 import LoginScreen from './screens/Login'
-import TravelsListScreen from './screens/TravelsList'
-import TravelScreen from './screens/Travel'
-import ActivitiesScreen from './screens/Activities'
-import UpdateNotifier from './components/UpdateNotifier'
-// import Header from './components/Header'
 import Editor from './screens/Editor'
+import UpdateNotifier from './components/UpdateNotifier'
 
 const AuthRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => (
@@ -47,7 +43,6 @@ class App extends React.Component {
     return (
       <Router>
         <main>
-          {/* <Header /> */}
           { this.state.updateAvailable && <UpdateNotifier /> }
 
           { /* Public Routes */ }
@@ -56,9 +51,6 @@ class App extends React.Component {
 
           { /* Authenticated Routes */ }
           <AuthRoute exact path='/editor' component={Editor} />
-          <AuthRoute exact path='/travels' component={TravelsListScreen} />
-          <AuthRoute exact path='/activities' component={ActivitiesScreen} />
-          <AuthRoute path='/travels/:id' component={TravelScreen} />
         </main>
       </Router>
     )
