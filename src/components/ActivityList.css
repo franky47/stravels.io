@@ -6,3 +6,14 @@
 .activity-list > .activity-card {
   margin-bottom: 5px;
 }
+
+.activity-list > button.load-more {
+  display: block;
+  margin: 20px auto 10px;
+  border: none;
+  background: none;
+  color: #aaa;
+  text-decoration: underline;
+  cursor: pointer;
+  outline: none;
+}
