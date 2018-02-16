@@ -94,24 +94,20 @@ query GetActivities($before: Date) {
 const withGraphQL = graphql(query, {
   props ({ data }) {
     const { payload, fetchMore } = data
-    console.log('blop', data.loading)
     return {
       data,
       loadNextPage () {
-        console.log('loadNextPage')
         return fetchMore({
           variables: {
             before: payload.cursors.oldest
           },
           updateQuery: (previousResult, { fetchMoreResult }) => {
-            console.log('updateQuery', previousResult, fetchMoreResult)
             if (!fetchMoreResult) {
               return previousResult
             }
             return {
               payload: {
-                hasMore: fetchMoreResult.payload.hasMore,
-                cursors: fetchMoreResult.payload.cursors,
+                ...fetchMoreResult.payload,
                 activities: [
                   ...previousResult.payload.activities,
                   ...fetchMoreResult.payload.activities
