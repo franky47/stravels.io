@@ -1,6 +1,8 @@
 import React from 'react'
 import mapboxgl from 'mapbox-gl'
 import Polyline from '@mapbox/polyline'
+import bbox from '@turf/bbox'
+import { multiLineString } from '@turf/helpers'
 
 import './Map.css'
 
@@ -27,6 +29,7 @@ export default class Map extends React.PureComponent {
   }
   componentDidUpdate (prevProps) {
     this._generatePolylines(prevProps)
+    this._fitToVisiblePolylines()
   }
 
   componentWillUnmount () {
@@ -92,5 +95,27 @@ export default class Map extends React.PureComponent {
     const layerId = `polyline-${id}`
     this.map.removeLayer(layerId)
     this.map.removeSource(layerId)
+  }
+
+  _fitToVisiblePolylines = () => {
+    const { polylines } = this.props
+    if (!Object.keys(polylines).length) {
+      return // Nothing to work with
+    }
+    const bounds = bbox(multiLineString(Object.values(polylines)
+      .map(p => Polyline.decode(p))
+    ))
+    const swapLatLngBounds = (bounds) => {
+      let l = bounds[1]
+      bounds[1] = bounds[0]
+      bounds[0] = l
+      l = bounds[3]
+      bounds[3] = bounds[2]
+      bounds[2] = l
+      return bounds
+    }
+    this.map.fitBounds(swapLatLngBounds(bounds), {
+      padding: 40
+    })
   }
 }

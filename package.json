@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@mapbox/polyline": "^0.2.0",
+    "@turf/bbox": "^5.1.5",
     "@turf/helpers": "^6.0.0",
     "apollo-client-preset": "^1.0.7",
     "apollo-link-context": "^1.0.3",
