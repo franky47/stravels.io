@@ -30,8 +30,8 @@ class Editor extends React.Component {
 
   render () {
     let activities = []
-    if (!this.props.data.loading && !this.props.error) {
-      activities = this.props.data.activities
+    if (!this.props.error) {
+      activities = this.props.data.payload.activities
     }
 
     activities = activities
@@ -46,7 +46,13 @@ class Editor extends React.Component {
 
     return (
       <div className='editor'>
-        <ActivityList items={activities} onItemSelect={this._onItemSelect} loading={this.props.data.loading} />
+        <ActivityList
+          items={activities}
+          onItemSelect={this._onItemSelect}
+          loading={this.props.data.loading}
+          onLoadMore={this.props.loadNextPage}
+          hasMore={this.props.data.payload.hasMore}
+        />
         <LoadableMap polylines={polylines} />
       </div>
     )
@@ -66,19 +72,62 @@ class Editor extends React.Component {
 }
 
 const query = gql`
-query GetActivities($before: Date, $after: Date) {
-  activities(before: $before, after: $after) {
-    id
-    title
-    distance(unit: KILOMETERS)
-    date(tz: "Europe/Paris")
-    thumbnailUrl(retina: true, size: 70)
-    elevation
-    polyline
+query GetActivities($before: Date) {
+  payload: activities(before: $before) {
+    hasMore
+    cursors {
+      oldest
+    }
+    activities {
+      id
+      title
+      distance(unit: KILOMETERS)
+      date(tz: "Europe/Paris")
+      thumbnailUrl(retina: true, size: 70)
+      elevation
+      polyline
+    }
   }
 }
 `
 
-const withGraphQL = graphql(query)
+const withGraphQL = graphql(query, {
+  props ({ data }) {
+    const { payload, fetchMore } = data
+    console.log('blop', data.loading)
+    return {
+      data,
+      loadNextPage () {
+        console.log('loadNextPage')
+        return fetchMore({
+          variables: {
+            before: payload.cursors.oldest
+          },
+          updateQuery: (previousResult, { fetchMoreResult }) => {
+            console.log('updateQuery', previousResult, fetchMoreResult)
+            if (!fetchMoreResult) {
+              return previousResult
+            }
+            return {
+              payload: {
+                hasMore: fetchMoreResult.payload.hasMore,
+                cursors: fetchMoreResult.payload.cursors,
+                activities: [
+                  ...previousResult.payload.activities,
+                  ...fetchMoreResult.payload.activities
+                ]
+              }
+            }
+          }
+        })
+      }
+    }
+  },
+  options: {
+    // https://github.com/apollographql/react-apollo/issues/727
+    // https://github.com/apollographql/apollo-client/issues/1617
+    notifyOnNetworkStatusChange: true
+  }
+})
 
 export default withGraphQL(RoR(Editor))

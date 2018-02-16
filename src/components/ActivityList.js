@@ -4,13 +4,18 @@ import Spinner from './Spinner'
 
 import './ActivityList.css'
 
-export default ({ items, onItemSelect, loading }) => (
+export default ({ items, loading, hasMore, onItemSelect, onLoadMore }) => (
   <section className='activity-list'>
-    { loading && <Spinner /> }
-    { !loading &&
+    {
       items.map(({ id, ...rest }) =>
         <ActivityCard key={id} id={id} {...rest} onClick={onItemSelect} />
       )
+    }
+    { loading && <Spinner /> }
+    { !loading && hasMore &&
+      <button onClick={onLoadMore} className='load-more'>
+        Load More
+      </button>
     }
   </section>
 )

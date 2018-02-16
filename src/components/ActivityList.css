@@ -1,6 +1,8 @@
 .activity-list {
-  display: grid;
   padding: 5px;
-  grid-gap: 5px;
   overflow: scroll;
+}
+
+.activity-list > .activity-card {
+  margin-bottom: 5px;
 }
