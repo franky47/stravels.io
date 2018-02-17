@@ -19,7 +19,9 @@ export default class Map extends React.PureComponent {
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       // style: 'mapbox://styles/mapbox/light-v9'
-      style: 'mapbox://styles/mapbox/outdoors-v10'
+      style: 'mapbox://styles/mapbox/outdoors-v10',
+      pitchWithRotate: false,
+      dragRotate: false
     })
 
     this.map.on('load', () => {
