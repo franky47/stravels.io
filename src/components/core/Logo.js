@@ -7,6 +7,7 @@ export default ({ color = 'limegreen', size = 64 }) => (
     viewBox='0 0 64 64'
     enableBackground='new 0 0 64 64'
     xmlSpace='preserve'
+    className='logo'
   >
     <g>
       <circle id='Start' fill='none' stroke={color} strokeWidth='4' strokeLinecap='round' strokeMiterlimit='10' cx='10.58' cy='53.047' r='4.526' />
