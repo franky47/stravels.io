@@ -66,7 +66,15 @@ export default class Map extends React.PureComponent {
     layersToDel.forEach(this._removePolyline)
   }
 
-  _addPolyline = (id) => {
+  _addPolyline = (id, index) => {
+    const colors = [
+      '#7cb342',
+      '#039be5',
+      '#5e35b1',
+      '#e53935',
+      '#ffb300'
+    ]
+    const color = colors[(Object.keys(this.props.polylines).length + index) % colors.length]
     const layerId = `polyline-${id}`
     const data = this.props.polylines[id]
     this.map.addLayer({
@@ -88,7 +96,7 @@ export default class Map extends React.PureComponent {
         'line-cap': 'round'
       },
       'paint': {
-        'line-color': '#f44336',
+        'line-color': color,
         'line-width': 5
       }
     })
