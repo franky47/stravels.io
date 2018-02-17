@@ -1,0 +1,22 @@
+.editor .editor-left-panel {
+  border-right: solid 1px #aaa;
+}
+
+/* -- todo: move to own file -- */
+
+.editor-left-panel > .editor-details {
+  text-align: center;
+  padding: 10px;
+}
+
+.editor-details > .title {
+  font-weight: 400;
+  width: 80%;
+  font-size: 2rem;
+  color: #333;
+  margin: 0 auto;
+}
+
+.editor-details > .date-range {
+  color: #555;
+}

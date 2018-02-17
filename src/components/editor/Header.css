@@ -1,0 +1,24 @@
+header.editor-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px 10px;
+  /* border-bottom: dashed 1px #ddd; */
+}
+
+header.editor-header > h1 {
+  margin: 0 0 0 5px;
+  font-weight: 200;
+  font-size: 2.5rem;
+  color: #555;
+}
+
+header.editor-header > img.profile {
+  width: 45px;
+  height: 45px;
+  margin-left: auto;
+  background-color: white;
+  border-radius: 100%;
+  padding: 3px;
+  border: solid 1px #ddd;
+}
