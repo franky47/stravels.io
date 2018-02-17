@@ -5,7 +5,7 @@ import './EditableText.css'
 export default class EditableText extends React.Component {
   state = {
     prevText: '',
-    text: 'Atlantic Coast Bike Trip'
+    text: ''
   }
   render () {
     const className = ['editable-text', this.props.className].join(' ')
