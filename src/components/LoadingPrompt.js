@@ -22,15 +22,19 @@ export default class LoadingPrompt extends React.Component {
 
   componentDidMount () {
     // Show this component only after a brief moment, to avoid spinner flash
-    setTimeout(() => this.setState({ display: true }), 500)
+    this.displayTimeout = setTimeout(() => this.setState({ display: true }), 500)
 
     const increment = () => {
       this.setState(prevState => ({
         index: (prevState.index + 1) % prompts.length
       }))
-      setTimeout(increment, 1000 + Math.random() * (1500 + this.state.index * 500))
+      this.incrementTimeout = setTimeout(increment, 1000 + Math.random() * (1500 + this.state.index * 500))
     }
-    setTimeout(increment, 2000)
+    this.incrementTimeout = setTimeout(increment, 2000)
+  }
+  componentWillUnmount () {
+    clearTimeout(this.displayTimeout)
+    clearTimeout(this.incrementTimeout)
   }
 
   render () {
