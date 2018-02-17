@@ -20,3 +20,9 @@
 .editor-details > .date-range {
   color: #555;
 }
+
+.editor-left-panel > .activity-list {
+  border-top: solid 1px #ddd;
+  margin-top: 20px;
+  height: calc(100% - 220px);
+}
