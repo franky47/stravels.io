@@ -1,0 +1,12 @@
+.loading-prompt {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-prompt > p {
+  margin-top: 20px;
+  color: #555;
+}

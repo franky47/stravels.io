@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import auth from '../lib/auth'
-import Spinner from './core/Spinner'
+import LoadingPrompt from './LoadingPrompt'
 
 const mutation = gql`
 mutation RefreshJwt {
@@ -54,14 +54,13 @@ class HocBody extends React.Component {
   render () {
     const { Component, data, ...rest } = this.props
     const { renderComponent, renderRedirect } = this.state
-    // console.log(this.state, this.props)
     if (renderComponent) {
       return <Component data={data} {...rest} />
     }
     if (renderRedirect) {
       return <Redirect to='/login' />
     }
-    return <Spinner />
+    return <LoadingPrompt />
   }
 }
 
