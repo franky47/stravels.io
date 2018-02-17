@@ -9,7 +9,7 @@ const logTitleChange = (title) => {
   console.log(title)
 }
 
-export default ({ onTitleChange = logTitleChange }) => (
+export default ({ onTitleChange = logTitleChange, children }) => (
   <aside className='editor-left-panel'>
     <Header />
     <div className='editor-details'>
@@ -17,5 +17,6 @@ export default ({ onTitleChange = logTitleChange }) => (
       <div className='date-range'>July - August 2017</div>
     </div>
     <Stats />
+    { children }
   </aside>
 )

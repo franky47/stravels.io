@@ -4,6 +4,8 @@ import gql from 'graphql-tag'
 import Loadable from 'react-loadable'
 
 // Components
+import LeftPanel from '../components/editor/LeftPanel'
+import ActivityList from '../components/ActivityList'
 import Spinner from '../components/core/Spinner'
 import RoR from '../components/RefreshOrRedirect'
 
@@ -29,7 +31,7 @@ class Editor extends React.Component {
 
   render () {
     let activities = []
-    if (!this.props.error) {
+    if (!this.props.data.error) {
       activities = this.props.data.payload.activities
     }
 
@@ -45,13 +47,15 @@ class Editor extends React.Component {
 
     return (
       <div className='editor'>
-        <ActivityList
-          items={activities}
-          onItemSelect={this._onItemSelect}
-          loading={this.props.data.loading}
-          onLoadMore={this.props.loadNextPage}
-          hasMore={this.props.data.payload.hasMore}
-        />
+        <LeftPanel>
+          <ActivityList
+            items={activities}
+            onItemSelect={this._onItemSelect}
+            loading={this.props.data.loading}
+            onLoadMore={this.props.loadNextPage}
+            hasMore={this.props.data.payload.hasMore}
+          />
+        </LeftPanel>
         <LoadableMap polylines={polylines} />
       </div>
     )

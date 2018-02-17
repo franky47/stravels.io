@@ -4,10 +4,6 @@
   grid-template-rows: 100vh;
 }
 
-.editor .activity-list {
-  border-right: solid 1px #aaa;
-}
-
 @media(max-width: 1280px) {
   .editor {
     grid-template-columns: 400px 1fr;
