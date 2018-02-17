@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import auth from '../lib/auth'
-import Spinner from './Spinner'
+import Spinner from './core/Spinner'
 
 const mutation = gql`
 mutation RefreshJwt {

@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from '../Logo'
+import Logo from '../core/Logo'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import profilePlaceholder from '../../resources/placeholder-user-64px.jpg'

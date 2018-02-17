@@ -5,8 +5,8 @@ import base64 from '../lib/base64'
 import auth from '../lib/auth'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import Logo from '../components/Logo'
-import Spinner from '../components/Spinner'
+import Logo from '../components/core/Logo'
+import Spinner from '../components/core/Spinner'
 
 import './Login.css'
 

@@ -4,8 +4,7 @@ import gql from 'graphql-tag'
 import Loadable from 'react-loadable'
 
 // Components
-import ActivityList from '../components/ActivityList'
-import Spinner from '../components/Spinner'
+import Spinner from '../components/core/Spinner'
 import RoR from '../components/RefreshOrRedirect'
 
 import './Editor.css'

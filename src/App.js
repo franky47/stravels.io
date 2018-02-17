@@ -9,7 +9,7 @@ import auth from './lib/auth'
 import LandingScreen from './screens/Landing'
 import LoginScreen from './screens/Login'
 import Editor from './screens/Editor'
-import UpdateNotifier from './components/UpdateNotifier'
+import UpdateNotifier from './components/core/UpdateNotifier'
 
 const AuthRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => (

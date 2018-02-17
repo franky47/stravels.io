@@ -1,6 +1,6 @@
 import React from 'react'
 import ActivityCard from './ActivityCard'
-import Spinner from './Spinner'
+import Spinner from './core/Spinner'
 
 import './ActivityList.css'
 
