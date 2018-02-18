@@ -1,12 +1,14 @@
-.editor .editor-left-panel {
+.editor-left-panel {
   border-right: solid 1px #aaa;
+  display: flex;
+  flex-direction: column;
 }
 
 /* -- todo: move to own file -- */
 
 .editor-left-panel > .editor-details {
   text-align: center;
-  padding: 10px;
+  padding: 0 1rem 1rem;
 }
 
 .editor-details > .title {
@@ -22,7 +24,7 @@
 }
 
 .editor-left-panel > .activity-list {
+  flex: 1;
   border-top: solid 1px #ddd;
-  margin-top: 20px;
-  height: calc(100% - 220px);
+  margin-top: 1.5rem;
 }
