@@ -1,15 +1,21 @@
 .activity-list {
-  padding: 5px;
+  padding: 0.5rem;
   overflow: scroll;
 }
 
+.activity-list > .empty {
+  text-align: center;
+  color: #aaa;
+  margin: 1rem;
+}
+
 .activity-list > .activity-card {
-  margin-bottom: 5px;
+  margin-bottom: 0.5rem;
 }
 
 .activity-list > button.load-more {
   display: block;
-  margin: 20px auto 10px;
+  margin: 2rem auto;
   border: none;
   background: none;
   color: #aaa;

@@ -3,7 +3,7 @@ import React from 'react'
 export default ({ color = 'limegreen', size = 64 }) => (
   <svg version='1.0' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
     x='0px' y='0px'
-    width={`${size}px`} height={`${size}px`}
+    width={`${size * 0.1}rem`} height={`${size * 0.1}rem`}
     viewBox='0 0 64 64'
     enableBackground='new 0 0 64 64'
     xmlSpace='preserve'

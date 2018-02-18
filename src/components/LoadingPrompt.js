@@ -44,7 +44,7 @@ export default class LoadingPrompt extends React.Component {
       <section className='loading-prompt'>
         <Logo size={70} />
         <p>{prompts[index]}</p>
-        <Spinner size={40} />
+        <Spinner size={45} />
       </section>
     )
   }

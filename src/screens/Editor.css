@@ -1,17 +1,17 @@
 .editor {
   display: grid;
-  grid-template-columns: 450px 1fr;
+  grid-template-columns: 45rem 1fr;
   grid-template-rows: 100vh;
 }
 
 @media(max-width: 1280px) {
   .editor {
-    grid-template-columns: 400px 1fr;
+    grid-template-columns: 40rem 1fr;
   }
 }
 
 @media(max-width: 1024px) {
   .editor {
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: 35rem 1fr;
   }
 }
