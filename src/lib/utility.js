@@ -1,5 +1,5 @@
 export const qsEncode = (obj = {}) => {
-  const qsify = key => encodeURIComponent(key) + '=' + encodeURIComponent(obj[key])
+  const qsify = key => [key, obj[key]].map(encodeURIComponent).join('=')
   return Object.keys(obj).map(qsify).join('&')
 }
 

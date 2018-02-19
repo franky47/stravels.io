@@ -82,6 +82,7 @@
       "describe",
       "test",
       "it",
+      "expect",
       "URL",
       "fetch"
     ],
