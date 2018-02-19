@@ -7,6 +7,16 @@ export default class EditableText extends React.Component {
     prevText: '',
     text: ''
   }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.value !== this.state.text) {
+      this.setState({
+        text: nextProps.value,
+        prevText: nextProps.value
+      })
+    }
+  }
+
   render () {
     const className = ['editable-text', this.props.className].join(' ')
     return (
