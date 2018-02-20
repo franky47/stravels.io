@@ -48,7 +48,7 @@ class Login extends React.Component {
     const { from } = this.props.location.state || { from: { pathname: '/' } }
     const isProd = process.env.NODE_ENV === 'production'
     const url = 'https://www.strava.com/oauth/authorize'
-    const host = isProd ? `https://${window.location.host}` : `http://localhost:${window.location.port}`
+    const host = isProd ? `${window.location.protocol}://${window.location.host}` : `http://localhost:${window.location.port}`
     const query = {
       client_id: 19454,
       redirect_uri: `${host}/login`,
