@@ -1,5 +1,5 @@
 .spinner {
-  margin: 20px auto;
+  margin: 0 auto;
   border-style: solid;
   border-radius: 100%;
   animation: spinnerAnimation 0.8s infinite linear;

@@ -39,3 +39,8 @@ section.login a {
   font-size: 1.8rem;
   border-radius: 0.4rem;
 }
+
+section.login .spinner {
+  margin-top: auto;
+  margin-bottom: 1.5rem;
+}
