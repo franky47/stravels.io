@@ -8,7 +8,7 @@
     "img meta";
   padding: 0.5rem;
   transition: all 0.1s ease-in-out;
-  border: solid rem limegreen;
+  border: solid 0 limegreen;
 }
 .activity-card.selected {
   border-left-width: 0.4rem;
