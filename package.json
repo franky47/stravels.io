@@ -64,7 +64,7 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "analyse": "source-map-explorer build/static/js/main.*",
-    "fix:surge-prod": "mv ./build/index.html ./build/200.html",
+    "fix:surge-prod": "cp ./build/index.html ./build/200.html",
     "deploy:staging": "surge -d https://staging.stravels.io -p ./build",
     "deploy:prod": "surge -d https://stravels.io -p ./build",
     "release:staging": "yarn build && yarn fix:surge-prod && yarn deploy:staging",
