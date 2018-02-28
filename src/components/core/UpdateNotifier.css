@@ -1,20 +1,13 @@
-/* Required for absolute positioning */
-/* html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-} */
-
 .update-notifier {
   position: absolute;
-  height: 20px;
-  padding: 10px;
+  height: 4rem;
+  padding: 1rem;
   background-color: #333;
   color: #ddd;
   font-family: sans-serif;
-  font-size: 13px;
+  font-size: 1.3rem;
   text-align: left;
-  line-height: 20px;
+  line-height: 2rem;
 }
 
 @media(max-width: 450px) {
@@ -29,9 +22,9 @@
 @media(min-width: 450px) {
   /* Desktop - Lower-left corner */
   .update-notifier {
-    bottom: 10px;
-    left: 10px;
-    border-radius: 3px;
+    bottom: 1rem;
+    left: 1rem;
+    border-radius: .3rem;
     -webkit-box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.2);
     -moz-box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.2);
     box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.2);
@@ -39,8 +32,8 @@
 }
 
 .update-notifier button {
-  margin-left: 5px;
-  padding: 0 5px;
+  margin-left: .5rem;
+  padding: 0 .5rem;
   background: none;
   border: none;
   text-transform: uppercase;
