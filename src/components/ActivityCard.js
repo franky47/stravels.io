@@ -1,5 +1,4 @@
 import React from 'react'
-import moment from 'moment'
 
 import './ActivityCard.css'
 
@@ -16,7 +15,7 @@ export default class ActivityCard extends React.PureComponent {
         <img src={thumbnailUrl} alt='thumbnail' />
         <h3 className='title'>{title}</h3>
         <div className='meta'>
-          <span>{ moment(date).format('MMM Do YYYY') }</span>
+          <span>{ new Date(date).toLocaleDateString() }</span>
           <span>{distance.toFixed(2)}km</span>
           <span>{elevation.toFixed(0)}m</span>
         </div>
