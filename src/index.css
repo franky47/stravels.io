@@ -46,7 +46,7 @@ p {
   margin-top: 0;
 }
 
-#root, main {
+body > div, main {
   height: 100%;
 }
 
