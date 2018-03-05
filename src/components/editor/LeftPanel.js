@@ -5,11 +5,7 @@ import Stats from './Stats'
 
 import './LeftPanel.css'
 
-const logTitleChange = (title) => {
-  console.log(title)
-}
-
-export default ({ onTitleChange = logTitleChange, children }) => (
+export default ({ onTitleChange = () => {}, children }) => (
   <aside className='editor-left-panel'>
     <Header />
     <div className='editor-details'>

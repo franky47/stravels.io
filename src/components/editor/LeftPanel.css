@@ -4,7 +4,7 @@
   flex-direction: column;
 }
 
-/* -- todo: move to own file -- */
+/* -- todo: move to own file(s) -- */
 
 .editor-left-panel > .editor-details {
   text-align: center;
@@ -25,6 +25,4 @@
 
 .editor-left-panel > .activity-list {
   flex: 1;
-  border-top: solid 1px #ddd;
-  margin-top: 1.5rem;
 }

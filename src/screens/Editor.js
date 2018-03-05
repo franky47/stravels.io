@@ -24,6 +24,13 @@ const LoadableMap = Loadable({
   }
 })
 
+const ActivityListHeader = ({ clear, save }) => (
+  <header className='activity-list-header'>
+    <button onClick={clear}>Clear</button>
+    <button onClick={save} className='primary'>Save</button>
+  </header>
+)
+
 class Editor extends React.Component {
   state = {
     selected: new Set()
@@ -48,6 +55,10 @@ class Editor extends React.Component {
     return (
       <div className='editor'>
         <LeftPanel>
+          <ActivityListHeader
+            clear={this._clearSelected}
+            save={this._saveSelected}
+          />
           <ActivityList
             items={activities}
             onItemSelect={this._onItemSelect}
@@ -71,6 +82,14 @@ class Editor extends React.Component {
     this.setState({
       selected
     })
+  }
+  _clearSelected = () => {
+    this.setState({
+      selected: new Set()
+    })
+  }
+  _saveSelected = () => {
+    console.log(this.state.selected)
   }
 }
 
