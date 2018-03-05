@@ -9,6 +9,7 @@
   padding: 0.5rem;
   transition: all 0.1s ease-in-out;
   border: solid 0 limegreen;
+  user-select: none;
 }
 .activity-card.selected {
   border-left-width: 0.4rem;
