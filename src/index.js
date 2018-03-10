@@ -14,6 +14,7 @@ import auth from './lib/auth'
 
 // Root styling
 import 'normalize.css'
+import './resources/heebo/stylesheet.css'
 import './index.css'
 
 import App from './App'
