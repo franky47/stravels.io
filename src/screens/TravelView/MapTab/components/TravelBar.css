@@ -1,0 +1,25 @@
+svg.travel-bar {
+  display: block;
+  width: 100%;
+  height: 8px;
+  overflow: visible;
+  cursor: pointer;
+}
+
+svg.travel-bar * {
+  transition: all 0.2s ease-out;
+}
+
+svg.travel-bar line,
+svg.travel-bar path {
+  stroke-width: 8;
+}
+
+svg.travel-bar .overview.focused {
+  opacity: 0.1;
+}
+
+svg.travel-bar .cursor {
+  stroke-linecap: round;
+  pointer-events: none;
+}

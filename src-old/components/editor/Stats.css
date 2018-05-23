@@ -1,4 +1,4 @@
-.stats {
+section.stats-tab {
   display: flex;
   flex-direction: row;
   justify-content: space-around;

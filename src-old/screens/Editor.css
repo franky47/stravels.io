@@ -4,13 +4,13 @@
   grid-template-rows: 100vh;
 }
 
-@media(max-width: 1280px) {
+@media (max-width: 1280px) {
   .editor {
     grid-template-columns: 40rem 1fr;
   }
 }
 
-@media(max-width: 1024px) {
+@media (max-width: 1024px) {
   .editor {
     grid-template-columns: 35rem 1fr;
   }
@@ -34,5 +34,5 @@ header.activity-list-header button {
 }
 
 header.activity-list-header button.primary {
-  color: limegreen;
+  color: #b6cd32;
 }

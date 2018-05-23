@@ -1,31 +1,23 @@
 import React from 'react'
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route
-} from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import CssBaseline from '@material-ui/core/CssBaseline'
 
 import auth from './lib/auth'
-import LandingScreen from './screens/Landing'
-import LoginScreen from './screens/Login'
-import Editor from './screens/Editor'
+import { AuthRoute } from './lib/routes'
 import UpdateNotifier from './components/core/UpdateNotifier'
 
-const AuthRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => (
-    auth.authenticated ? (
-      <Component {...props} />
-    ) : (
-      <Redirect to={{
-        pathname: '/login',
-        state: { from: props.location }
-      }} />
-    )
-  )} />
-)
+// Screens
+import HomeScreen from './screens/Home/Home'
+import LoginScreen from './screens/Login/Login'
+import TravelsList from './screens/TravelsList/TravelsList'
+import TravelView from './screens/TravelView/TravelView'
+import CreateTravel from './screens/CreateTravel/CreateTravel'
+
+import Theme from './theme'
+import './App.css'
 
 class App extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     auth.init()
     this.state = {
@@ -39,19 +31,32 @@ class App extends React.Component {
     })
   }
 
-  render () {
+  render() {
     return (
       <Router>
-        <main>
-          { this.state.updateAvailable && <UpdateNotifier /> }
+        <React.Fragment>
+          <CssBaseline />
+          <Theme>
+            <React.Fragment>
+              {/* Public Routes */}
+              <Route path="/login" component={LoginScreen} />
 
-          { /* Public Routes */ }
-          <Route exact path='/' component={LandingScreen} />
-          <Route path='/login' component={LoginScreen} />
+              {/* Authenticated Routes */}
+              <Switch>
+                <AuthRoute exact path="/" component={HomeScreen} />
+                <AuthRoute exact path="/travels" component={TravelsList} />
+                <AuthRoute
+                  exact
+                  path="/travels/create"
+                  component={CreateTravel}
+                />
+                <AuthRoute path="/travels/:id" component={TravelView} />
+              </Switch>
 
-          { /* Authenticated Routes */ }
-          <AuthRoute exact path='/editor' component={Editor} />
-        </main>
+              {this.state.updateAvailable && <UpdateNotifier />}
+            </React.Fragment>
+          </Theme>
+        </React.Fragment>
       </Router>
     )
   }

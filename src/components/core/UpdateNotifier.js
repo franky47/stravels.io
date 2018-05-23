@@ -8,7 +8,7 @@ const onClick = () => {
 }
 
 export default () => (
-  <div className='update-notifier'>
+  <div className="update-notifier">
     A new version of Stravels is available
     <button onClick={onClick}>Refresh</button>
   </div>

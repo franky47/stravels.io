@@ -1,3 +1,5 @@
+import { EventEmitter } from 'events'
+
 // In production, we register a service worker to serve assets from local cache.
 
 // This lets the app load faster on subsequent visits in production, and gives
@@ -7,6 +9,8 @@
 
 // To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
 // This link also includes instructions on opting out of this behavior.
+
+export const swEvents = new EventEmitter()
 
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
@@ -18,7 +22,7 @@ const isLocalhost = Boolean(
     )
 )
 
-export default function register (eventEmitter) {
+export function register() {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new window.URL(process.env.PUBLIC_URL, window.location)
@@ -34,7 +38,7 @@ export default function register (eventEmitter) {
 
       if (isLocalhost) {
         // This is running on localhost. Lets check if a service worker still exists or not.
-        checkValidServiceWorker(swUrl, eventEmitter)
+        checkValidServiceWorker(swUrl)
 
         // Add some additional logging to localhost, pointing developers to the
         // service worker/PWA documentation.
@@ -46,13 +50,13 @@ export default function register (eventEmitter) {
         })
       } else {
         // Is not local host. Just register service worker
-        registerValidSW(swUrl, eventEmitter)
+        registerValidSW(swUrl)
       }
     })
   }
 }
 
-function registerValidSW (swUrl, eventEmitter) {
+function registerValidSW(swUrl) {
   navigator.serviceWorker
     .register(swUrl)
     .then(registration => {
@@ -66,14 +70,7 @@ function registerValidSW (swUrl, eventEmitter) {
               // It's the perfect time to display a "New content is
               // available; please refresh." message in your web app.
               console.log('New content is available; please refresh.')
-              eventEmitter.emit('updateAvailable')
-              // window.location.reload()
-            } else {
-              // At this point, everything has been precached.
-              // It's the perfect time to display a
-              // "Content is cached for offline use." message.
-              console.log('Content is cached for offline use.')
-              eventEmitter.emit('contentCached')
+              swEvents.emit('updateAvailable')
             }
           }
         }
@@ -84,9 +81,10 @@ function registerValidSW (swUrl, eventEmitter) {
     })
 }
 
-function checkValidServiceWorker (swUrl, eventEmitter) {
+function checkValidServiceWorker(swUrl) {
   // Check if the service worker can be found. If it can't reload the page.
-  window.fetch(swUrl)
+  window
+    .fetch(swUrl)
     .then(response => {
       // Ensure service worker exists, and that we really are getting a JS file.
       if (
@@ -101,18 +99,18 @@ function checkValidServiceWorker (swUrl, eventEmitter) {
         })
       } else {
         // Service worker found. Proceed as normal.
-        registerValidSW(swUrl, eventEmitter)
+        registerValidSW(swUrl)
       }
     })
     .catch(() => {
-      eventEmitter.emit('offline')
+      swEvents.emit('offline')
       console.log(
         'No internet connection found. App is running in offline mode.'
       )
     })
 }
 
-export function unregister () {
+export function unregister() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready.then(registration => {
       registration.unregister()

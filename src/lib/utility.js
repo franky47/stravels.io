@@ -1,11 +1,15 @@
-export const qsEncode = (obj = {}) => {
+// @flow
+
+export const qsEncode = (obj: any = {}): string => {
   const qsify = key => [key, obj[key]].map(encodeURIComponent).join('=')
-  return Object.keys(obj).map(qsify).join('&')
+  return Object.keys(obj)
+    .map(qsify)
+    .join('&')
 }
 
-export const qsDecode = (qs = '') => {
+export const qsDecode = (qs: string = ''): any => {
   const reducer = (obj, pair) => {
-    const [ key, value ] = pair.split('=').map(decodeURIComponent)
+    const [key, value] = pair.split('=').map(decodeURIComponent)
     obj[key] = value
     return obj
   }

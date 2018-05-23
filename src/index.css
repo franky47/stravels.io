@@ -1,19 +1,22 @@
 /* -- Viewport Setup -- */
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
 
 /* Take all the vertical space, don't scroll */
-html, body {
+html,
+body {
   height: 100%;
   overflow: hidden;
 }
 
 /* -- Typography -- */
 
-html, body {
+html,
+body {
   /* Prevent iOS text size adjust after orientation change, without disabling
    * user zoom. */
   -ms-text-size-adjust: 100%;
@@ -30,10 +33,15 @@ body {
   font-size: 1.5em; /* currently ems cause chrome bug misinterpreting rems on body element */
   line-height: 1.6;
   font-weight: 300;
-  font-family: Heebo, Roboto, sans-serif;
+  font-family: Roboto, sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-top: 0;
   margin-bottom: 2rem;
 }
@@ -42,13 +50,16 @@ p {
   margin-top: 0;
 }
 
-body > div, main {
+#root,
+main {
   height: 100%;
 }
 
 html {
   box-sizing: border-box;
 }
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
