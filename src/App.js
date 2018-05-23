@@ -21,6 +21,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     auth.init()
+    storage.hydrate()
     this.state = {
       updateAvailable: false
     }

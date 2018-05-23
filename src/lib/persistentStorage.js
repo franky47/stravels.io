@@ -53,7 +53,42 @@ const activities: ActivityMap = new Map([
   ...acbt.map(a => [a.id, a])
 ])
 
+// -----------------------------------------------------------------------------
+
+const makeStorageKey = name => `ps://${name}`
+
+const persist = () => {
+  const persistMap = (name: string, map: Map<string, any>) => {
+    const data = Array.from(map.entries())
+    localStorage.setItem(makeStorageKey(name), JSON.stringify(data))
+  }
+  persistMap('travels', travels)
+  persistMap('activities', activities)
+}
+
+const hydrate = () => {
+  const hydrateMap = (name: string, map: Map<string, any>) => {
+    try {
+      const data = JSON.parse(
+        localStorage.getItem(makeStorageKey(name)) || '[]'
+      )
+      data.forEach(([key, val]) => {
+        map.set(key, val)
+      })
+    } catch (_) {}
+  }
+  hydrateMap('travels', travels)
+  hydrateMap('activities', activities)
+}
+
+// -----------------------------------------------------------------------------
+
 export default {
   travels,
-  activities
+  activities,
+
+  // --
+
+  persist,
+  hydrate
 }
