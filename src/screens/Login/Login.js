@@ -1,17 +1,14 @@
 import React from 'react'
 import { Redirect, withRouter } from 'react-router'
-import auth from '../../lib/auth'
+import auth from 'lib/auth'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import Logo from '../../components/core/Logo'
-import Spinner from '../../components/core/Spinner'
+import Logo from 'components/core/Logo'
 
-import { qsDecode } from '../../lib/utility'
-import { decodeStateTraversal, getStravaOAuthURL } from '../../lib/login'
+import { qsDecode } from 'lib/utility'
+import { decodeStateTraversal, getStravaOAuthURL } from 'lib/login'
 
 import LoginButton from './LoginButton'
-
-// import './Login.css'
 
 class Login extends React.Component {
   state = {

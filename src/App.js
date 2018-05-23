@@ -2,19 +2,20 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
-import auth from './lib/auth'
-import { AuthRoute } from './lib/routes'
-import UpdateNotifier from './components/core/UpdateNotifier'
+import auth from 'lib/auth'
+import storage from 'lib/persistentStorage'
+import { AuthRoute } from 'lib/routes'
+import UpdateNotifier from 'components/core/UpdateNotifier'
 
 // Screens
-import HomeScreen from './screens/Home/Home'
-import LoginScreen from './screens/Login/Login'
-import TravelsList from './screens/TravelsList/TravelsList'
-import TravelView from './screens/TravelView/TravelView'
-import CreateTravel from './screens/CreateTravel/CreateTravel'
+import HomeScreen from 'screens/Home/Home'
+import LoginScreen from 'screens/Login/Login'
+import TravelsList from 'screens/TravelsList/TravelsList'
+import TravelView from 'screens/TravelView/TravelView'
+import CreateTravel from 'screens/CreateTravel/CreateTravel'
 
-import Theme from './theme'
-import './App.css'
+import Theme from 'theme'
+import 'App.css'
 
 class App extends React.Component {
   constructor(props) {

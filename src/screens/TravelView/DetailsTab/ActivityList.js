@@ -20,11 +20,7 @@ type RowItemProps = {
 const RowItem = ({ activity }: RowItemProps) => {
   const { id, title, thumbnailUrl } = activity
   return (
-    <ListItem
-      button
-      component="a"
-      href={`https://strava.com/activities/${activity.id}`}
-    >
+    <ListItem button component="a" href={`https://strava.com/activities/${id}`}>
       <Avatar src={thumbnailUrl} />
       <ListItemText primary={title} />
     </ListItem>
