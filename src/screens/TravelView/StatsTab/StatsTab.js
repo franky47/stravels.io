@@ -7,14 +7,11 @@ import type { ActivityStats } from './stats'
 
 import './StatsTab.css'
 
-import fakeData from 'fixtures/summer2.json'
-
 type Props = {
   +activities: Array<ActivityStats>
 }
 
 export default ({ activities }: Props) => {
-  activities = fakeData
   const totals = computeTotals(activities)
   const averages = computeAverages(activities)
   const maxes = computeMaxes(activities)
