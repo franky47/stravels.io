@@ -1,13 +1,23 @@
 // @flow
 
 export type ActivityID = string
+export type TravelID = string
 
 export type Travel = {
-  id: string,
-  title: string,
-  startDate: Date | string,
-  endDate: Date | string,
-  activities: Array<ActivityID>
+  +id: TravelID,
+  +title: string,
+  +activities: Array<ActivityID>
+  // startDate: Date | string,
+  // endDate: Date | string
+}
+
+export type ActivitySummary = {
+  +id: ActivityID,
+  +title: string,
+  +thumbnailUrl: string,
+  +date: string,
+  +distance: number,
+  +elevation: number
 }
 
 export type ActivityDetails = {

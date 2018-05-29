@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 // Material UI Components
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-import Icon from '@material-ui/icons'
 import AddIcon from '@material-ui/icons/Add'
 
 const styles = theme => ({

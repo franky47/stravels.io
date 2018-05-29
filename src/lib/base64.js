@@ -14,15 +14,10 @@ function escape(str: string): string {
     .replace(/=/g, '')
 }
 
-function encode(str: string): string {
+export function encode(str: string): string {
   return escape(Buffer.from(str, 'utf8').toString('base64'))
 }
 
-function decode(str: string): string {
+export function decode(str: string): string {
   return Buffer.from(unescape(str), 'base64').toString('utf8')
-}
-
-export default {
-  encode,
-  decode
 }

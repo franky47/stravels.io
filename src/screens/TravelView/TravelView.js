@@ -1,7 +1,8 @@
 // @flow
 
-import React from 'react'
-import { Switch, Route, withRouter } from 'react-router-dom'
+import * as React from 'react'
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 // Material UI Components
 import { withStyles } from '@material-ui/core/styles'
@@ -24,10 +25,8 @@ import StatsTab from './StatsTab/StatsTab'
 import DetailsTab from './DetailsTab/DetailsTab'
 
 // Types
-import type { Travel, ActivityDetails } from 'lib/types'
-import storage from 'lib/persistentStorage'
-
-// -----------------------------------------------------------------------------
+import type { TravelID, Travel, ActivityID, ActivityDetails } from 'lib/types'
+import type { State as ReduxState } from 'state/types'
 
 // -----------------------------------------------------------------------------
 
@@ -44,9 +43,9 @@ const styles = theme => ({
   flex: {
     flex: 1
   },
-  editIcon: {
-    marginRight: -12
-  },
+  // editIcon: {
+  //   marginRight: -12
+  // },
   bottomNav: {
     position: 'fixed',
     bottom: 0,
@@ -58,23 +57,24 @@ type Props = {
   // JSS
   +classes: any,
   // Router
-  +match: any,
-  +history: any,
+  +match: Object,
+  +history: Object,
 
   +travel: Travel,
   +activities: Array<ActivityDetails>
 }
 
 class TravelView extends React.Component<Props> {
-  travel: ?Travel = null
-  activities: Array<?ActivityDetails> = []
-
   handleTabChange = (event, url) => {
     this.props.history.replace(url)
   }
 
   render() {
     const { classes, match, history, travel, activities } = this.props
+    if (travel === null) {
+      return <Redirect to="/" />
+    }
+
     return (
       <section className={classes.root + ' screen'}>
         <AppBar position="sticky" color="default">
@@ -146,24 +146,29 @@ class TravelView extends React.Component<Props> {
   }
 }
 
-const StyledTravelView = withStyles(styles)(TravelView)
+// Redux --
 
-const WithDataStyledTravelView = ({ match, children, ...rest }) => {
-  const { id } = match.params
-  const travel = storage.travels.get(id) || { activities: [] }
-  const activities = travel.activities.map(activityId =>
-    storage.activities.get(activityId)
-  )
-  return (
-    <StyledTravelView
-      {...rest}
-      match={match}
-      travel={travel}
-      activities={activities}
-    >
-      {children}
-    </StyledTravelView>
-  )
+const mapStateToProps = (state: ReduxState, { match }: Props): Object => {
+  const id: TravelID = match.params.id
+  const travel = state.travels[id] || null
+  if (!travel) {
+    return {
+      travel: null,
+      activities: []
+    }
+  }
+  const ascendingDate = (a, b) => (a.date > b.date ? 1 : -1)
+  const activities = travel.activities
+    .map((id: ActivityID): ActivityDetails => state.activities[id])
+    .sort(ascendingDate)
+  return {
+    travel,
+    activities
+  }
 }
 
-export default withRouter(WithDataStyledTravelView)
+const withRedux = connect(mapStateToProps)
+
+// --
+
+export default withRouter(withRedux(withStyles(styles)(TravelView)))

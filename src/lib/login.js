@@ -1,6 +1,6 @@
 // @flow
 
-import base64 from './base64'
+import * as base64 from './base64'
 import { qsEncode } from './utility'
 
 const isProd: boolean = process.env.NODE_ENV === 'production'

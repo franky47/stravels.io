@@ -1,8 +1,10 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Provider as StoreProvider } from 'react-redux'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
 import auth from 'lib/auth'
+import createStore from 'state/createStore'
 import storage from 'lib/persistentStorage'
 import { AuthRoute } from 'lib/routes'
 import UpdateNotifier from 'components/core/UpdateNotifier'
@@ -31,35 +33,38 @@ class App extends React.Component {
         updateAvailable: true
       })
     })
+    this.store = createStore()
   }
 
   render() {
     return (
-      <Router>
-        <React.Fragment>
-          <CssBaseline />
-          <Theme>
-            <React.Fragment>
-              {/* Public Routes */}
-              <Route path="/login" component={LoginScreen} />
+      <StoreProvider store={this.store}>
+        <Router>
+          <React.Fragment>
+            <CssBaseline />
+            <Theme>
+              <React.Fragment>
+                {/* Public Routes */}
+                <Route path="/login" component={LoginScreen} />
 
-              {/* Authenticated Routes */}
-              <Switch>
-                <AuthRoute exact path="/" component={HomeScreen} />
-                <AuthRoute exact path="/travels" component={TravelsList} />
-                <AuthRoute
-                  exact
-                  path="/travels/create"
-                  component={CreateTravel}
-                />
-                <AuthRoute path="/travels/:id" component={TravelView} />
-              </Switch>
+                {/* Authenticated Routes */}
+                <Switch>
+                  <AuthRoute exact path="/" component={HomeScreen} />
+                  <AuthRoute exact path="/travels" component={TravelsList} />
+                  <AuthRoute
+                    exact
+                    path="/travels/create"
+                    component={CreateTravel}
+                  />
+                  <AuthRoute path="/travels/:id" component={TravelView} />
+                </Switch>
 
-              {this.state.updateAvailable && <UpdateNotifier />}
-            </React.Fragment>
-          </Theme>
-        </React.Fragment>
-      </Router>
+                {this.state.updateAvailable && <UpdateNotifier />}
+              </React.Fragment>
+            </Theme>
+          </React.Fragment>
+        </Router>
+      </StoreProvider>
     )
   }
 }
