@@ -16,11 +16,6 @@ const styles = theme => ({
   filter: {
     float: 'right',
     marginRight: -12
-  },
-  sticky: {
-    position: 'sticky',
-    backgroundColor: theme.palette.background.paper,
-    top: '0'
   }
 })
 
