@@ -28,7 +28,8 @@ const styles = theme => ({
 
 type Props = {
   +url: string,
-  classes: any
+  +classes: Object,
+  +className: string
 }
 type State = {
   loading: boolean
@@ -40,7 +41,7 @@ class LoginButton extends React.Component<Props, State> {
   }
 
   render() {
-    const { url, classes } = this.props
+    const { url, classes, className } = this.props
     const { loading } = this.state
     return (
       <Button
@@ -48,6 +49,7 @@ class LoginButton extends React.Component<Props, State> {
         variant="raised"
         href={url}
         onClick={this.setLoading}
+        className={className}
       >
         <span
           className={[

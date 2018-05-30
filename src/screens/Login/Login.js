@@ -1,16 +1,61 @@
+// @flow
+
 import React from 'react'
 import { Redirect, withRouter } from 'react-router'
 import auth from 'lib/auth'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import Logo from 'components/core/Logo'
+
+// Material UI Components
+import { withStyles } from '@material-ui/core'
+import Typography from '@material-ui/core/Typography'
 
 import { qsDecode } from 'lib/utility'
 import { decodeStateTraversal, getStravaOAuthURL } from 'lib/login'
 
+import Logo from 'components/core/Logo'
 import LoginButton from './LoginButton'
+import poweredByStrava from './poweredByStrava.svg'
 
-class Login extends React.Component {
+const styles = theme => ({
+  root: {
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    backgroundColor: theme.palette.background.paper
+  },
+  logo: {
+    position: 'absolute',
+    top: '40vh',
+    transform: 'translateY(-50%)'
+  },
+  button: {
+    position: 'absolute',
+    top: '70vh',
+    transform: 'translateY(-50%)'
+  },
+  poweredByStrava: {
+    maxHeight: 30,
+    marginBottom: theme.spacing.unit
+  }
+})
+
+type Props = {
+  +classes: Object,
+  // GraphQL-injected
+  +loginWithCode: Object => Promise<Object>
+}
+type State = {
+  redirect: boolean,
+  from: ?{
+    pathname: string
+  },
+  loading: boolean
+}
+
+class Login extends React.Component<Props, State> {
   state = {
     redirect: false,
     from: {
@@ -24,24 +69,24 @@ class Login extends React.Component {
   }
 
   render() {
+    const { classes } = this.props
     const { redirect, from, loading } = this.state
     if (redirect) {
       return <Redirect to={from} />
     }
     return (
-      <section className="login">
-        <Logo size={80} />
-        <h1>Stravels</h1>
-        <LoginButton url={this._getRequestURL()} />
-
-        {/* {loading ? (
-          <Spinner size={47} thickness={4} />
-        ) : (
-          <LoginButton url={this._getRequestURL()} />
-          // <a href={this._getRequestURL()} className="loading">
-          //   Login with Strava
-          // </a>
-        )} */}
+      <section className="login" className={classes.root}>
+        <Logo size={80} className={classes.logo} />
+        <LoginButton
+          url={this._getRequestURL()}
+          loading={loading}
+          className={classes.button}
+        />
+        <img
+          src={poweredByStrava}
+          alt="Powered by Strava"
+          className={classes.poweredByStrava}
+        />
       </section>
     )
   }
@@ -87,4 +132,4 @@ const withGraphQL = graphql(mutation, {
   name: 'loginWithCode'
 })
 
-export default withGraphQL(withRouter(Login))
+export default withGraphQL(withRouter(withStyles(styles)(Login)))

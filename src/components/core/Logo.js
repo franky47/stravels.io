@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default ({ color = 'limegreen', size = 64 }) => (
+export default ({ color = 'limegreen', size = 64, className = '' }) => (
   <svg
     version="1.0"
     xmlns="http://www.w3.org/2000/svg"
@@ -12,7 +12,7 @@ export default ({ color = 'limegreen', size = 64 }) => (
     viewBox="0 0 64 64"
     enableBackground="new 0 0 64 64"
     xmlSpace="preserve"
-    className="logo"
+    className={className}
   >
     <g>
       <circle
