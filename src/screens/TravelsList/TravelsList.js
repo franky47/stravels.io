@@ -24,7 +24,8 @@ const styles = theme => ({
 
 type Props = {
   +classes: Object,
-  +travels: Array<Travel>
+  +travels: Array<Travel>,
+  +moveFabUp: boolean
 }
 type State = {
   editing: boolean
@@ -36,7 +37,7 @@ class TravelsList extends React.Component<Props, State> {
   }
 
   render() {
-    const { classes, travels } = this.props
+    const { classes, travels, moveFabUp } = this.props
     const { editing } = this.state
 
     return (
@@ -44,7 +45,7 @@ class TravelsList extends React.Component<Props, State> {
         <Header showEdit={travels.length > 0} toggleEdit={this.toggleEdit} />
         {travels.length === 0 && <EmptyListPlaceholder />}
         <List travels={travels} editing={editing} />
-        <CreateTravelFAB />
+        <CreateTravelFAB moveUp={moveFabUp} />
       </section>
     )
   }

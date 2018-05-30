@@ -59,7 +59,12 @@ class App extends React.Component {
                   <AuthRoute path="/travels/:id" component={TravelView} />
                 </Switch>
 
-                {this.state.updateAvailable && <UpdateNotifier />}
+                <Route
+                  path="/travels"
+                  render={() => <TravelsList moveFabUp={updateAvailable} />}
+                />
+
+                <UpdateNotifier open={updateAvailable} />
               </React.Fragment>
             </Theme>
           </React.Fragment>
