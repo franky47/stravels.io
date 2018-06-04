@@ -1,4 +1,4 @@
-import base64 from './base64'
+import * as base64 from './base64'
 
 describe('Base64', () => {
   describe('Encode', () => {
