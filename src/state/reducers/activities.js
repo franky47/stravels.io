@@ -1,16 +1,13 @@
 // @flow
 
 import type { ActivityID, ActivityDetails } from 'lib/types'
-import type { Action } from '../actions/types'
+import type { Action } from 'state/actions/types'
 
-export type ActivityMap = { [key: ActivityID]: ActivityDetails }
+export type State = { [key: ActivityID]: ActivityDetails }
 
-const initialState: ActivityMap = {}
+const initialState: State = {}
 
-const activities = (
-  state: ActivityMap = initialState,
-  action: Action
-): ActivityMap => {
+const activities = (state: State = initialState, action: Action): State => {
   if (action.type === 'STORE_ACTIVITY') {
     return {
       ...state,

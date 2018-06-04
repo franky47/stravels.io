@@ -1,13 +1,13 @@
 // @flow
 
 import type { TravelID, Travel } from 'lib/types'
-import type { Action } from '../actions/types'
+import type { Action } from 'state/actions/types'
 
-export type TravelMap = { [key: TravelID]: Travel }
+export type State = { [key: TravelID]: Travel }
 
-const initialState: TravelMap = {}
+const initialState: State = {}
 
-export default (state: TravelMap = initialState, action: Action): TravelMap => {
+export default (state: State = initialState, action: Action): State => {
   if (action.type === 'CREATE_TRAVEL') {
     const { travel } = action
     return {

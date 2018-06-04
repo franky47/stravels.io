@@ -2,12 +2,6 @@
 
 import type { TravelID, Travel, ActivityID, ActivityDetails } from 'lib/types'
 
-export type State = {
-  +version: number,
-  +travels: Array<Travel>,
-  +activities: Array<ActivityDetails>
-}
-
 // Action Types ----------------------------------------------------------------
 
 export type Action =
