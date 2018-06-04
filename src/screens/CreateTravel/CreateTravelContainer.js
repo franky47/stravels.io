@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch(storeActivity(activity))
   },
   createTravel: (activities: Set<ActivityID>) => {
-    const action = createTravel(Array.from(activities))
+    const action: { travel: Travel } = createTravel(Array.from(activities))
     dispatch(action)
     const { id } = action.travel
     ownProps.history.replace(`/travels/${id}`)
