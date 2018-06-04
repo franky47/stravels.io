@@ -1,17 +1,19 @@
 // @flow
 
 import React from 'react'
+import classNames from 'classnames'
+
+// Routing
 import { Redirect, withRouter } from 'react-router'
-import auth from 'lib/auth'
-import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
 
 // Material UI Components
 import { withStyles } from '@material-ui/core'
-import Typography from '@material-ui/core/Typography'
 
 import { qsDecode } from 'lib/utility'
 import { decodeStateTraversal, getStravaOAuthURL } from 'lib/login'
+
+import type { JWT } from 'lib/auth'
+import auth from 'lib/auth'
 
 import Logo from 'components/core/Logo'
 import LoginButton from './LoginButton'
@@ -19,7 +21,7 @@ import poweredByStrava from './poweredByStrava.svg'
 
 const styles = theme => ({
   root: {
-    height: '100vh',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
@@ -44,9 +46,11 @@ const styles = theme => ({
 
 type Props = {
   +classes: Object,
+  +location: any,
   // GraphQL-injected
   +loginWithCode: Object => Promise<Object>
 }
+
 type State = {
   redirect: boolean,
   from: ?{
@@ -75,7 +79,7 @@ class Login extends React.Component<Props, State> {
       return <Redirect to={from} />
     }
     return (
-      <section className="login" className={classes.root}>
+      <section className={classNames(classes.root, 'screen')}>
         <Logo size={80} className={classes.logo} />
         <LoginButton
           url={this._getRequestURL()}
@@ -91,7 +95,7 @@ class Login extends React.Component<Props, State> {
     )
   }
 
-  _getRequestURL = () => {
+  _getRequestURL = (): string => {
     // Save where we came from for state traversal
     const { from } = this.props.location.state || { from: { pathname: '/' } }
     return getStravaOAuthURL(from)
@@ -123,13 +127,4 @@ class Login extends React.Component<Props, State> {
   }
 }
 
-const mutation = gql`
-  mutation LoginWithCode($code: AuthenticationCode!) {
-    jwt: loginWithCode(code: $code)
-  }
-`
-const withGraphQL = graphql(mutation, {
-  name: 'loginWithCode'
-})
-
-export default withGraphQL(withRouter(withStyles(styles)(Login)))
+export default withStyles(styles)(Login)
