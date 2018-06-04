@@ -64,20 +64,20 @@ class App extends React.Component {
     const { updateAvailable } = this.state
     return (
       <React.Fragment>
-        <TransitionGroup component={null}>
-          <CSSTransition classNames="screen" key={location.key} timeout={400}>
-            <Switch location={location}>
-              <Route
-                exact
-                path="/"
-                render={() => <TravelsList moveFabUp={updateAvailable} />}
-              />
-              <Route exact path="/login" component={LoginScreen} />
-              <AuthRoute exact path="/create" component={CreateTravel} />
-              <Route path="/travels/:id" component={TravelView} />
-            </Switch>
-          </CSSTransition>
-        </TransitionGroup>
+        {/* <TransitionGroup component={null}>
+          <CSSTransition classNames="screen" key={location.key} timeout={400}> */}
+        <Switch location={location}>
+          <Route
+            exact
+            path="/"
+            render={() => <TravelsList moveFabUp={updateAvailable} />}
+          />
+          <Route exact path="/login" component={LoginScreen} />
+          <AuthRoute exact path="/create" component={CreateTravel} />
+          <Route path="/travels/:id" component={TravelView} />
+        </Switch>
+        {/* </CSSTransition>
+        </TransitionGroup> */}
         <UpdateNotifier open={updateAvailable} />
       </React.Fragment>
     )
