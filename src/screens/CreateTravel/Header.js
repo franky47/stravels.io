@@ -15,9 +15,6 @@ import BackIcon from '@material-ui/icons/ArrowBack'
 import FilterIcon from '@material-ui/icons/FilterList'
 
 const styles = theme => ({
-  root: {
-    position: 'inherit'
-  },
   backButton: {
     marginLeft: -12,
     marginRight: 20
@@ -48,7 +45,7 @@ const Header = ({
   onClear,
   onFilter
 }: Props) => (
-  <AppBar color="default" className={classes.root}>
+  <AppBar position="sticky" color="default">
     <Toolbar>
       <IconButton
         className={classes.backButton}

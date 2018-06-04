@@ -6,7 +6,6 @@ import Media from 'react-media'
 // Material UI Components
 import Button from '@material-ui/core/Button'
 import Snackbar from '@material-ui/core/Snackbar'
-import SnackbarContent from '@material-ui/core/SnackbarContent'
 
 const onClick = () => {
   // true = force reload from server, ignore cache
