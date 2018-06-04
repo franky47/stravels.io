@@ -7,8 +7,6 @@ export type Travel = {
   +id: TravelID,
   +title: string,
   +activities: Array<ActivityID>
-  // startDate: Date | string,
-  // endDate: Date | string
 }
 
 export type ActivitySummary = {
@@ -16,8 +14,7 @@ export type ActivitySummary = {
   +title: string,
   +thumbnailUrl: string,
   +date: string,
-  +distance: number,
-  +elevation: number
+  +type: string
 }
 
 export type ActivityDetails = {

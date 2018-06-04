@@ -8,14 +8,22 @@ import { withRouter } from 'react-router-dom'
 
 import { createTravel } from 'state/actions/travels'
 import { storeActivity } from 'state/actions/activities'
-import type { ActivityID, ActivityDetails, TravelID, Travel } from 'lib/types'
+import type {
+  ActivityID,
+  ActivitySummary,
+  ActivityDetails,
+  TravelID,
+  Travel
+} from 'lib/types'
 
 import CreateTravelComponent from './CreateTravelComponent'
 
 // Redux --
 
 const mapStateToProps = state => ({
-  activities: Object.values(state.activities),
+  activityFilter: (activity: ActivitySummary): boolean => {
+    return state.activityFilter[activity.type] || false
+  },
   hasActivity: (id: ActivityID): boolean => {
     return state.activities.hasOwnProperty(id)
   }
@@ -32,7 +40,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   }
 })
 
-const withState = connect(mapStateToProps, mapDispatchToProps)
+const withRedux = connect(mapStateToProps, mapDispatchToProps)
 
 // GraphQL --
 
@@ -46,6 +54,7 @@ const getActivitiesQuery = gql`
       activities {
         id
         title
+        type
         thumbnailUrl(retina: true, size: 100)
         date(tz: "Europe/Paris")
       }
@@ -59,6 +68,7 @@ const getActivityDetailsQuery = gql`
       # Summary (should resolve from cache)
       id
       title
+      type
       thumbnailUrl(retina: true, size: 100)
       date(tz: "Europe/Paris")
 
@@ -130,4 +140,4 @@ const withGraphQL = Component => ({ ...props }) => (
 
 // --
 
-export default withRouter(withState(withGraphQL(CreateTravelComponent)))
+export default withRouter(withRedux(withGraphQL(CreateTravelComponent)))

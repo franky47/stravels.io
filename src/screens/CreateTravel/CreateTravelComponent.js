@@ -45,6 +45,7 @@ type Props = {
   +error: any,
   // Redux-injected
   +hasActivity: (id: ActivityID) => boolean,
+  +activityFilter: (activity: ActivitySummary) => boolean,
   +storeActivity: (activity: ActivityDetails) => void,
   +createTravel: (activities: Set<ActivityID>) => void
 }
@@ -57,14 +58,23 @@ type State = {
 class CreateTravel extends React.Component<Props, State> {
   state = {
     selectedActivities: new Set(),
-    filterDialogOpen: true
+    filterDialogOpen: false
   }
 
   render() {
-    const { classes, activities, loadMore, loading, error } = this.props
+    const {
+      classes,
+      activities,
+      activityFilter,
+      loadMore,
+      loading,
+      error
+    } = this.props
     const { selectedActivities, filterDialogOpen } = this.state
     const loadingHead = loading && activities.length === 0
     const loadingTail = loading && activities.length > 0
+
+    const filteredActivities = activities.filter(activityFilter)
 
     return (
       <section className={classNames(classes.root, 'screen')}>
@@ -75,7 +85,7 @@ class CreateTravel extends React.Component<Props, State> {
         <Header onFilter={this.showFilterDialog} />
         <div className={classes.scroll}>
           <ActivityPicker
-            activities={activities}
+            activities={filteredActivities}
             selected={selectedActivities}
             onItemSelect={this.onActivitySelect}
             loadingHead={loadingHead}
