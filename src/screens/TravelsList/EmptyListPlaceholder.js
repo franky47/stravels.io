@@ -29,7 +29,7 @@ const EmptyListPlaceholder = ({ classes }) => (
       size="medium"
       className={classes.button}
       component={Link}
-      to="/travels/create"
+      to="/create"
     >
       Create travel
     </Button>

@@ -1,75 +1,85 @@
-import React from 'react'
+import * as React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Provider as StoreProvider } from 'react-redux'
-import CssBaseline from '@material-ui/core/CssBaseline'
+import { PersistGate } from 'redux-persist/integration/react'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import auth from 'lib/auth'
 import createStore from 'state/createStore'
-import storage from 'lib/persistentStorage'
 import { AuthRoute } from 'lib/routes'
 import UpdateNotifier from 'components/core/UpdateNotifier'
 
 // Screens
-import HomeScreen from 'screens/Home/Home'
-import LoginScreen from 'screens/Login/Login'
+import LoginScreen from 'screens/Login/LoginContainer'
 import TravelsList from 'screens/TravelsList/TravelsList'
 import TravelView from 'screens/TravelView/TravelView'
-import CreateTravel from 'screens/CreateTravel/CreateTravel'
+import CreateTravel from 'screens/CreateTravel/CreateTravelContainer'
 
+// Material UI Theming
+import CssBaseline from '@material-ui/core/CssBaseline'
 import Theme from 'theme'
 import 'App.css'
 
 class App extends React.Component {
+  state = {
+    updateAvailable: false
+  }
+
   constructor(props) {
     super(props)
+    // window.serviceWorkerEvents = this.props.serviceWorkerEvents
     auth.init()
-    storage.hydrate()
-    this.state = {
-      updateAvailable: false
-    }
-
     this.props.serviceWorkerEvents.on('updateAvailable', () => {
       this.setState({
         updateAvailable: true
       })
     })
-    this.store = createStore()
+    // Redux & Persistence
+    const { store, persistor } = createStore()
+    this.store = store
+    this.storePersistor = persistor
   }
 
   render() {
     return (
       <StoreProvider store={this.store}>
-        <Router>
-          <React.Fragment>
-            <CssBaseline />
-            <Theme>
-              <React.Fragment>
-                {/* Public Routes */}
-                <Route path="/login" component={LoginScreen} />
-
-                {/* Authenticated Routes */}
-                <Switch>
-                  <AuthRoute exact path="/" component={HomeScreen} />
-                  <AuthRoute exact path="/travels" component={TravelsList} />
-                  <AuthRoute
-                    exact
-                    path="/travels/create"
-                    component={CreateTravel}
-                  />
-                  <AuthRoute path="/travels/:id" component={TravelView} />
-                </Switch>
-
-                <Route
-                  path="/travels"
-                  render={() => <TravelsList moveFabUp={updateAvailable} />}
-                />
-
-                <UpdateNotifier open={updateAvailable} />
-              </React.Fragment>
-            </Theme>
-          </React.Fragment>
-        </Router>
+        <PersistGate
+          loading={<p>Loading...</p>}
+          persistor={this.storePersistor}
+        >
+          <Router>
+            <React.Fragment>
+              <CssBaseline />
+              <Theme>
+                <Route render={this.renderRoutes} />
+              </Theme>
+            </React.Fragment>
+          </Router>
+        </PersistGate>
       </StoreProvider>
+    )
+  }
+
+  renderRoutes = ({ location }) => {
+    const { updateAvailable } = this.state
+    return (
+      <React.Fragment>
+        <TransitionGroup component={null}>
+          <CSSTransition classNames="screen" key={location.key} timeout={400}>
+            <Switch location={location}>
+              <Route
+                exact
+                path="/"
+                render={() => <TravelsList moveFabUp={updateAvailable} />}
+              />
+              <Route exact path="/login" component={LoginScreen} />
+              <AuthRoute exact path="/create" component={CreateTravel} />
+              <Route path="/travels/:id" component={TravelView} />
+            </Switch>
+          </CSSTransition>
+        </TransitionGroup>
+        <UpdateNotifier open={updateAvailable} />
+      </React.Fragment>
     )
   }
 }

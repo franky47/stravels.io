@@ -47,6 +47,7 @@ class LoginButton extends React.Component<Props, State> {
       <Button
         color="secondary"
         variant="raised"
+        size="large"
         href={url}
         onClick={this.setLoading}
         className={className}

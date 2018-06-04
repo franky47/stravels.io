@@ -41,7 +41,7 @@ type Props = {
   +moveUp: boolean
 }
 
-const CreateTravelFAB = ({ classes, moveUp }) => (
+const CreateTravelFAB = ({ classes, moveUp }: Props) => (
   <Button
     variant="fab"
     color="secondary"
@@ -52,7 +52,7 @@ const CreateTravelFAB = ({ classes, moveUp }) => (
       [classes.fabMoveDown]: !moveUp
     })}
     component={Link}
-    to="/travels/create"
+    to="/create"
   >
     <AddIcon />
   </Button>
