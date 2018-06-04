@@ -22,6 +22,7 @@ const styles = theme => ({
     color: 'white'
   },
   logo: {
+    marginLeft: 4,
     marginRight: theme.spacing.unit * 2
   },
   flex: {
@@ -52,7 +53,7 @@ class Header extends React.Component<Props> {
     return (
       <AppBar position="sticky" color="primary">
         <Toolbar>
-          <Logo color="white" size={24} className={classes.logo} />
+          <Logo color="white" size={22} className={classes.logo} />
           {/* <IconButton
             className={classNames(classes.menuButton, classes.primaryText)}
             color="inherit"
