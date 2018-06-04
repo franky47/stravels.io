@@ -4,10 +4,12 @@ import { combineReducers } from 'redux'
 
 import travels from './travels'
 import activities from './activities'
+import activityFilter from './activityFilter'
 
 // Root Reducer --
 
 export default combineReducers({
   travels,
-  activities
+  activities,
+  activityFilter
 })

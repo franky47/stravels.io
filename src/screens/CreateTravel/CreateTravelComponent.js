@@ -9,6 +9,7 @@ import Slide from '@material-ui/core/Slide'
 
 import Header from './Header'
 import Footer from './Footer'
+import ActivityFilter from './ActivityFilterContainer'
 import ActivityPicker from './ActivityPicker'
 import type {
   ActivityID,
@@ -49,23 +50,29 @@ type Props = {
 }
 
 type State = {
-  selectedActivities: Set<ActivityID>
+  selectedActivities: Set<ActivityID>,
+  filterDialogOpen: boolean
 }
 
 class CreateTravel extends React.Component<Props, State> {
   state = {
-    selectedActivities: new Set()
+    selectedActivities: new Set(),
+    filterDialogOpen: true
   }
 
   render() {
     const { classes, activities, loadMore, loading, error } = this.props
-    const { selectedActivities } = this.state
+    const { selectedActivities, filterDialogOpen } = this.state
     const loadingHead = loading && activities.length === 0
     const loadingTail = loading && activities.length > 0
 
     return (
       <section className={classNames(classes.root, 'screen')}>
-        <Header />
+        <ActivityFilter
+          open={filterDialogOpen}
+          onClose={this.hideFilterDialog}
+        />
+        <Header onFilter={this.showFilterDialog} />
         <div className={classes.scroll}>
           <ActivityPicker
             activities={activities}
@@ -117,6 +124,15 @@ class CreateTravel extends React.Component<Props, State> {
 
   onCreate = () => {
     this.props.createTravel(this.state.selectedActivities)
+  }
+
+  // --
+
+  showFilterDialog = () => {
+    this.setState({ filterDialogOpen: true })
+  }
+  hideFilterDialog = () => {
+    this.setState({ filterDialogOpen: false })
   }
 }
 

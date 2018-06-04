@@ -2,14 +2,13 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
-// import { graphql } from 'react-apollo'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import { withRouter } from 'react-router-dom'
 
 import { createTravel } from 'state/actions/travels'
 import { storeActivity } from 'state/actions/activities'
-import type { ActivityID, ActivityDetails, TravelID } from 'lib/types'
+import type { ActivityID, ActivityDetails, TravelID, Travel } from 'lib/types'
 
 import CreateTravelComponent from './CreateTravelComponent'
 
@@ -26,7 +25,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch(storeActivity(activity))
   },
   createTravel: (activities: Set<ActivityID>) => {
-    const action: { travel: Travel } = createTravel(Array.from(activities))
+    const action: { +travel: Travel } = createTravel(Array.from(activities))
     dispatch(action)
     const { id } = action.travel
     ownProps.history.replace(`/travels/${id}`)
@@ -49,8 +48,6 @@ const getActivitiesQuery = gql`
         title
         thumbnailUrl(retina: true, size: 100)
         date(tz: "Europe/Paris")
-        # distance
-        # elevation
       }
     }
   }

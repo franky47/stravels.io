@@ -1,10 +1,12 @@
 // @flow
 
 import type { ActivityID, TravelID } from 'lib/types'
-import type { Action } from './types'
+import type { CreateTravelAction, DeleteTravelAction } from './types'
 import nanoid from 'nanoid'
 
-export const createTravel = (activities: Array<ActivityID>): Action => ({
+export const createTravel = (
+  activities: Array<ActivityID>
+): CreateTravelAction => ({
   type: 'CREATE_TRAVEL',
   travel: {
     id: nanoid(),
@@ -13,7 +15,7 @@ export const createTravel = (activities: Array<ActivityID>): Action => ({
   }
 })
 
-export const deleteTravel = (id: TravelID): Action => ({
+export const deleteTravel = (id: TravelID): DeleteTravelAction => ({
   type: 'DELETE_TRAVEL',
   id
 })

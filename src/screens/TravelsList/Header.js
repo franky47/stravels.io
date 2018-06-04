@@ -13,12 +13,16 @@ import IconButton from '@material-ui/core/IconButton'
 // Icons
 import MenuIcon from '@material-ui/icons/Menu'
 import EditIcon from '@material-ui/icons/Edit'
+import Logo from 'components/core/Logo'
 
 const styles = theme => ({
   menuButton: {
     marginLeft: -4,
     marginRight: 10,
     color: 'white'
+  },
+  logo: {
+    marginRight: theme.spacing.unit * 2
   },
   flex: {
     flex: 1
@@ -48,12 +52,13 @@ class Header extends React.Component<Props> {
     return (
       <AppBar position="sticky" color="primary">
         <Toolbar>
-          <IconButton
+          <Logo color="white" size={24} className={classes.logo} />
+          {/* <IconButton
             className={classNames(classes.menuButton, classes.primaryText)}
             color="inherit"
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <Typography
             variant="title"
             noWrap

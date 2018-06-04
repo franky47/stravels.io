@@ -34,3 +34,16 @@ export type ActivityDetails = {
   +averageSpeed: number, // m/s
   +movingTime: number // seconds
 }
+
+export type ActivityFilterItem =
+  | 'Ride'
+  | 'Run'
+  | 'Walk'
+  | 'Hike'
+  | 'Backcountry Ski'
+  | 'Nordic Ski'
+  | 'Snowshoe'
+  | 'Canoe'
+  | 'Kayak'
+  | 'Handcycle'
+  | 'Inline Skate'
