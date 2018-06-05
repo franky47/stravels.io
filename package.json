@@ -4,17 +4,19 @@
   "private": true,
   "dependencies": {
     "@mapbox/polyline": "^0.2.0",
+    "@material-ui/core": "^1.0.0",
+    "@material-ui/icons": "^1.0.0",
     "@turf/bbox": "^5.1.5",
     "@turf/helpers": "^6.0.1",
-    "apollo-client-preset": "^1.0.8",
+    "apollo-boost": "^0.1.7",
     "apollo-link-context": "^1.0.5",
-    "apollo-link-error": "^1.0.5",
     "autoprefixer": "8.0.0",
     "axios": "^0.18.0",
     "babel-core": "6.26.0",
     "babel-eslint": "8.2.1",
     "babel-jest": "22.2.2",
     "babel-loader": "7.1.2",
+    "babel-preset-flow": "^6.23.0",
     "babel-preset-react-app": "^3.1.1",
     "babel-runtime": "6.26.0",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
@@ -38,6 +40,7 @@
     "jest": "22.3.0",
     "jsonwebtoken": "^8.1.1",
     "mapbox-gl": "^0.44.1",
+    "nanoid": "^1.0.2",
     "normalize.css": "^8.0.0",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.3.0",
@@ -49,7 +52,12 @@
     "react-dev-utils": "^5.0.0",
     "react-dom": "^16.2.0",
     "react-loadable": "^5.3.1",
+    "react-media": "^1.8.0",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
+    "react-swipeable-routes": "^0.4.1",
+    "redux": "^4.0.0",
+    "redux-persist": "^5.9.1",
     "style-loader": "0.20.2",
     "sw-precache-webpack-plugin": "0.11.4",
     "url-loader": "0.6.2",
@@ -64,38 +72,22 @@
     "test": "node scripts/test.js --env=jsdom",
     "analyse": "source-map-explorer build/static/js/main.*",
     "fix:surge-prod": "cp ./build/index.html ./build/200.html",
-    "deploy:staging": "surge -d https://staging.stravels.io -p ./build",
+    "deploy:staging": "surge -d https://pwa.stravels.io -p ./build",
     "deploy:prod": "surge -d https://stravels.io -p ./build",
-    "release:staging": "yarn build && yarn fix:surge-prod && yarn deploy:staging",
+    "release:staging":
+      "yarn build && yarn fix:surge-prod && yarn deploy:staging",
     "release": "yarn build && yarn fix:surge-prod && yarn deploy"
   },
   "devDependencies": {
+    "flow-bin": "^0.70.0",
+    "lighthouse": "^2.9.4",
     "react-hot-loader": "^4.0.0",
     "source-map-explorer": "^1.5.0",
-    "standard": "^11.0.0",
     "surge": "^0.19.0"
   },
-  "standard": {
-    "parser": "babel-eslint",
-    "globals": [
-      "describe",
-      "test",
-      "it",
-      "expect",
-      "URL",
-      "fetch"
-    ],
-    "ignore": [
-      "/config/**"
-    ]
-  },
   "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,mjs}"
-    ],
-    "setupFiles": [
-      "<rootDir>/config/polyfills.js"
-    ],
+    "collectCoverageFrom": ["src/**/*.{js,jsx,mjs}"],
+    "setupFiles": ["<rootDir>/config/polyfills.js"],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
       "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}"
@@ -105,11 +97,10 @@
     "transform": {
       "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
       "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+      "^(?!.*\\.(js|jsx|mjs|css|json)$)":
+        "<rootDir>/config/jest/fileTransform.js"
     },
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
-    ],
+    "transformIgnorePatterns": ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"],
     "moduleNameMapper": {
       "^react-native$": "react-native-web"
     },
@@ -124,9 +115,7 @@
     ]
   },
   "babel": {
-    "presets": [
-      "react-app"
-    ]
+    "presets": ["react-app", "flow"]
   },
   "eslintConfig": {
     "extends": "react-app"

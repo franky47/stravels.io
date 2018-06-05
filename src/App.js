@@ -1,58 +1,85 @@
-import React from 'react'
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route
-} from 'react-router-dom'
+import * as React from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Provider as StoreProvider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
-import auth from './lib/auth'
-import LandingScreen from './screens/Landing'
-import LoginScreen from './screens/Login'
-import Editor from './screens/Editor'
-import UpdateNotifier from './components/core/UpdateNotifier'
+import auth from 'lib/auth'
+import createStore from 'state/createStore'
+import { AuthRoute } from 'lib/routes'
+import UpdateNotifier from 'components/core/UpdateNotifier'
 
-const AuthRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => (
-    auth.authenticated ? (
-      <Component {...props} />
-    ) : (
-      <Redirect to={{
-        pathname: '/login',
-        state: { from: props.location }
-      }} />
-    )
-  )} />
-)
+// Screens
+import LoginScreen from 'screens/Login/LoginContainer'
+import TravelsList from 'screens/TravelsList/TravelsList'
+import TravelView from 'screens/TravelView/TravelView'
+import CreateTravel from 'screens/CreateTravel/CreateTravelContainer'
+
+// Material UI Theming
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Theme from 'theme'
+import 'App.css'
 
 class App extends React.Component {
-  constructor (props) {
-    super(props)
-    auth.init()
-    this.state = {
-      updateAvailable: false
-    }
+  state = {
+    updateAvailable: false
+  }
 
+  constructor(props) {
+    super(props)
+    // window.serviceWorkerEvents = this.props.serviceWorkerEvents
+    auth.init()
     this.props.serviceWorkerEvents.on('updateAvailable', () => {
       this.setState({
         updateAvailable: true
       })
     })
+    // Redux & Persistence
+    const { store, persistor } = createStore()
+    this.store = store
+    this.storePersistor = persistor
   }
 
-  render () {
+  render() {
     return (
-      <Router>
-        <main>
-          { this.state.updateAvailable && <UpdateNotifier /> }
+      <StoreProvider store={this.store}>
+        <PersistGate
+          loading={<p>Loading...</p>}
+          persistor={this.storePersistor}
+        >
+          <Router>
+            <React.Fragment>
+              <CssBaseline />
+              <Theme>
+                <Route render={this.renderRoutes} />
+              </Theme>
+            </React.Fragment>
+          </Router>
+        </PersistGate>
+      </StoreProvider>
+    )
+  }
 
-          { /* Public Routes */ }
-          <Route exact path='/' component={LandingScreen} />
-          <Route path='/login' component={LoginScreen} />
-
-          { /* Authenticated Routes */ }
-          <AuthRoute exact path='/editor' component={Editor} />
-        </main>
-      </Router>
+  renderRoutes = ({ location }) => {
+    const { updateAvailable } = this.state
+    return (
+      <React.Fragment>
+        {/* <TransitionGroup component={null}>
+          <CSSTransition classNames="screen" key={location.key} timeout={400}> */}
+        <Switch location={location}>
+          <Route
+            exact
+            path="/"
+            render={() => <TravelsList moveFabUp={updateAvailable} />}
+          />
+          <Route exact path="/login" component={LoginScreen} />
+          <AuthRoute exact path="/create" component={CreateTravel} />
+          <Route path="/travels/:id" component={TravelView} />
+        </Switch>
+        {/* </CSSTransition>
+        </TransitionGroup> */}
+        <UpdateNotifier open={updateAvailable} />
+      </React.Fragment>
     )
   }
 }

@@ -1,4 +1,14 @@
-const storeToLocalStorage = (jwt = null) => {
+// @flow
+
+export type JWT = string
+
+type AuthState = {
+  jwt: ?JWT
+}
+
+// -----------------------------------------------------------------------------
+
+const storeToLocalStorage = (jwt: ?JWT = null) => {
   if (jwt === null) {
     window.localStorage.removeItem('stravels-jwt')
   } else {
@@ -6,10 +16,13 @@ const storeToLocalStorage = (jwt = null) => {
   }
 }
 
-const getFromLocalStorage = () =>
-  window.localStorage.getItem('stravels-jwt') || null
+const getFromLocalStorage = (): ?JWT => {
+  return window.localStorage.getItem('stravels-jwt') || null
+}
 
-const authState = {
+// -----------------------------------------------------------------------------
+
+const authState: AuthState = {
   jwt: null
 }
 
@@ -20,7 +33,10 @@ export default {
     const jwt = getFromLocalStorage()
     authState.jwt = jwt
   },
-  authenticate: (jwt) => {
+
+  // --
+
+  authenticate: (jwt: JWT) => {
     authState.jwt = jwt
     storeToLocalStorage(jwt)
   },
@@ -28,10 +44,13 @@ export default {
     authState.jwt = null
     storeToLocalStorage(null)
   },
-  get jwt () {
+
+  // --
+
+  get jwt(): ?JWT {
     return authState.jwt
   },
-  get authenticated () {
+  get authenticated(): boolean {
     return authState.jwt !== null
   }
 }
