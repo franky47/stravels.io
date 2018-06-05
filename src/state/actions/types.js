@@ -15,6 +15,12 @@ export type CreateTravelAction = {
   +travel: Travel
 }
 
+export type RenameTravelAction = {
+  +type: 'RENAME_TRAVEL',
+  +id: TravelID,
+  +title: string
+}
+
 export type DeleteTravelAction = {
   +type: 'DELETE_TRAVEL',
   +id: TravelID
@@ -32,6 +38,7 @@ export type ToggleActivityFilterItem = {
 
 export type Action =
   | CreateTravelAction
+  | RenameTravelAction
   | DeleteTravelAction
   | StoreActivityAction
   | ToggleActivityFilterItem

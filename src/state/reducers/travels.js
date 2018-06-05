@@ -15,6 +15,17 @@ export default (state: State = initialState, action: Action): State => {
       [travel.id]: travel
     }
   }
+  if (action.type === 'RENAME_TRAVEL') {
+    const { id, title } = action
+    return {
+      ...state,
+      [id]: {
+        ...state[id],
+        title
+      }
+    }
+  }
+
   if (action.type === 'DELETE_TRAVEL') {
     // Use rest operator to copy all but the key we want gone:
     const { id } = action
