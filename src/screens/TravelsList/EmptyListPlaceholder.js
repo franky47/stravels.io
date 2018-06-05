@@ -11,8 +11,8 @@ import Button from '@material-ui/core/Button'
 const styles = theme => ({
   caption: {
     textAlign: 'center',
-    margin: '3rem 0 2rem',
-    fontSize: '1rem'
+    margin: '3em 0 2em',
+    fontSize: '1em'
   },
   button: {
     margin: theme.spacing.unit

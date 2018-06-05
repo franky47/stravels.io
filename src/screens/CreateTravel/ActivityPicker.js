@@ -28,7 +28,7 @@ const styles = theme => ({
     zIndex: 10000
   },
   spinnerTail: {
-    margin: '1rem auto'
+    margin: '1em auto'
   },
   loadMoreButton: {
     display: 'block',

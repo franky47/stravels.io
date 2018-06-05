@@ -7,8 +7,8 @@ export default ({ color = 'limegreen', size = 64, className = '' }) => (
     xmlnsXlink="http://www.w3.org/1999/xlink"
     x="0px"
     y="0px"
-    width={`${size * 0.1}rem`}
-    height={`${size * 0.1}rem`}
+    width={`${size * 0.1}em`}
+    height={`${size * 0.1}em`}
     viewBox="0 0 64 64"
     enableBackground="new 0 0 64 64"
     xmlSpace="preserve"
@@ -26,8 +26,9 @@ export default ({ color = 'limegreen', size = 64, className = '' }) => (
         cy="53.047"
         r="4.526"
       />
-      <g>
-        {/* Finish */}
+      <g
+      // Finish
+      >
         <line
           fill="none"
           stroke={color}

@@ -2,5 +2,5 @@ section.stats-tab .row {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  padding: 1rem;
+  padding: 1em;
 }
