@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 
 // Icons
-import MenuIcon from '@material-ui/icons/Menu'
+// import MenuIcon from '@material-ui/icons/Menu'
 import EditIcon from '@material-ui/icons/Edit'
 import Logo from 'components/core/Logo'
 

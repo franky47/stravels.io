@@ -1,6 +1,6 @@
 // @flow
 
-import type { ActivityID, ActivityDetails } from 'lib/types'
+import type { ActivityDetails } from 'lib/types'
 import type { StoreActivityAction } from './types'
 
 export const storeActivity = (

@@ -6,17 +6,13 @@ import classNames from 'classnames'
 // Material UI Components
 import { withStyles } from '@material-ui/core/styles'
 import Slide from '@material-ui/core/Slide'
+import Snackbar from '@material-ui/core/Snackbar'
 
 import Header from './Header'
 import Footer from './Footer'
 import ActivityFilter from './ActivityFilterContainer'
 import ActivityPicker from './ActivityPicker'
-import type {
-  ActivityID,
-  ActivitySummary,
-  ActivityDetails,
-  TravelID
-} from 'lib/types'
+import type { ActivityID, ActivitySummary, ActivityDetails } from 'lib/types'
 
 const styles = theme => ({
   root: {
@@ -104,6 +100,11 @@ class CreateTravel extends React.Component<Props, State> {
             onCreate={this.onCreate}
           />
         </Slide>
+        <Snackbar
+          open={error}
+          message={error ? error.message.toString() : ''}
+          autoHideDuration={6000}
+        />
       </section>
     )
   }

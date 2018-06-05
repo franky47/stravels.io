@@ -8,7 +8,6 @@ import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
@@ -41,7 +40,7 @@ class MetaEditor extends React.Component<Props, State> {
   }
 
   render() {
-    const { classes, open, onClose } = this.props
+    const { open, onClose } = this.props
     const { title } = this.state
     return (
       <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">

@@ -2,9 +2,7 @@
 
 import React from 'react'
 import classNames from 'classnames'
-
-// Routing
-import { Redirect, withRouter } from 'react-router'
+import { Redirect } from 'react-router'
 
 // Material UI Components
 import { withStyles } from '@material-ui/core'
@@ -12,7 +10,6 @@ import { withStyles } from '@material-ui/core'
 import { qsDecode } from 'lib/utility'
 import { decodeStateTraversal, getStravaOAuthURL } from 'lib/login'
 
-import type { JWT } from 'lib/auth'
 import auth from 'lib/auth'
 
 import Logo from 'components/core/Logo'

@@ -12,7 +12,6 @@ import type {
   ActivityID,
   ActivitySummary,
   ActivityDetails,
-  TravelID,
   Travel
 } from 'lib/types'
 
@@ -104,26 +103,27 @@ const withGraphQL = Component => ({ ...props }) => (
           })
           .then(({ data }) => data.activity)
       }
-      const loadMore = (data.payload || {}).hasMore
-        ? () =>
-            fetchMore({
-              variables: {
-                before: data.payload.cursors.oldest
-              },
-              updateQuery: (prev, { fetchMoreResult }) => {
-                if (!fetchMoreResult) return prev
-                return {
-                  payload: {
-                    ...fetchMoreResult.payload,
-                    activities: [
-                      ...prev.payload.activities,
-                      ...fetchMoreResult.payload.activities
-                    ]
+      const loadMore =
+        data && (data.payload || {}).hasMore
+          ? () =>
+              fetchMore({
+                variables: {
+                  before: data.payload.cursors.oldest
+                },
+                updateQuery: (prev, { fetchMoreResult }) => {
+                  if (!fetchMoreResult) return prev
+                  return {
+                    payload: {
+                      ...fetchMoreResult.payload,
+                      activities: [
+                        ...prev.payload.activities,
+                        ...fetchMoreResult.payload.activities
+                      ]
+                    }
                   }
                 }
-              }
-            })
-        : () => {}
+              })
+          : () => {}
       return (
         <Component
           {...props}

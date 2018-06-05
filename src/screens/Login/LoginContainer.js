@@ -1,9 +1,6 @@
 // @flow
 
-import React from 'react'
-import classNames from 'classnames'
-import { Redirect, withRouter } from 'react-router'
-import auth from 'lib/auth'
+import { withRouter } from 'react-router'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
