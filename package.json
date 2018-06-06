@@ -74,8 +74,7 @@
     "fix:surge-prod": "cp ./build/index.html ./build/200.html",
     "deploy:staging": "surge -d https://pwa.stravels.io -p ./build",
     "deploy:prod": "surge -d https://stravels.io -p ./build",
-    "release:staging":
-      "yarn build && yarn fix:surge-prod && yarn deploy:staging",
+    "release:staging": "yarn build && yarn fix:surge-prod && yarn deploy:staging",
     "release": "yarn build && yarn fix:surge-prod && yarn deploy"
   },
   "devDependencies": {
@@ -86,8 +85,12 @@
     "surge": "^0.19.0"
   },
   "jest": {
-    "collectCoverageFrom": ["src/**/*.{js,jsx,mjs}"],
-    "setupFiles": ["<rootDir>/config/polyfills.js"],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,mjs}"
+    ],
+    "setupFiles": [
+      "<rootDir>/config/polyfills.js"
+    ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
       "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}"
@@ -97,10 +100,11 @@
     "transform": {
       "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
       "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|mjs|css|json)$)":
-        "<rootDir>/config/jest/fileTransform.js"
+      "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
     },
-    "transformIgnorePatterns": ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"],
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
+    ],
     "moduleNameMapper": {
       "^react-native$": "react-native-web"
     },
@@ -115,7 +119,10 @@
     ]
   },
   "babel": {
-    "presets": ["react-app", "flow"]
+    "presets": [
+      "react-app",
+      "flow"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
