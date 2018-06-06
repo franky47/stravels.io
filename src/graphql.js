@@ -29,14 +29,20 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     graphQLErrors.forEach(({ message, locations, path, data }) => {
       console.group('[GraphQL Error]')
       console.log(message)
-      if (data) console.log(data)
+      if (data) console.log('Data:', data)
       if (path) {
-        console.log('Path', path)
+        console.log('Path:', path)
       }
       if (locations) {
-        console.log('Locations', locations)
+        console.log('Locations:', locations)
       }
       console.groupEnd()
+    })
+
+    graphQLErrors.forEach(({ data }) => {
+      if (data.reason === 'jwt expired') {
+        window.location.replace('/login')
+      }
     })
   }
   if (networkError) {
