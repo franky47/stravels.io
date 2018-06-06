@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
+import { Switch, Route, Redirect, Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 // Material UI Components
@@ -83,7 +83,9 @@ class TravelView extends React.Component<Props> {
               className={classes.backButton}
               color="inherit"
               aria-label="Back"
-              onClick={history.goBack}
+              component={Link}
+              to="/"
+              replace
             >
               <BackIcon />
             </IconButton>
