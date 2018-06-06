@@ -4,8 +4,11 @@ import { HttpLink } from 'apollo-link-http'
 import { onError } from 'apollo-link-error'
 import { setContext } from 'apollo-link-context'
 import { InMemoryCache } from 'apollo-cache-inmemory'
+import gql from 'graphql-tag'
 
 import auth from './lib/auth'
+
+let client = null
 
 const httpLink = new HttpLink({
   uri:
@@ -24,6 +27,12 @@ const authLink = setContext((_, { headers }) => {
   }
 })
 
+const refreshToken = gql`
+  mutation {
+    jwt: refreshToken
+  }
+`
+
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     graphQLErrors.forEach(({ message, locations, path, data }) => {
@@ -40,8 +49,20 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     })
 
     graphQLErrors.forEach(({ data }) => {
-      if (data.reason === 'jwt expired') {
-        window.location.replace('/login')
+      if (data && data.reason === 'jwt expired') {
+        console.log('Reauthenticating...')
+        client
+          .mutate({
+            mutation: refreshToken
+          })
+          .then(({ data }) => {
+            if (data && data.jwt) {
+              auth.authenticate(data.jwt)
+              window.location.reload()
+            } else {
+              window.location.replace('/login')
+            }
+          })
       }
     })
   }
@@ -50,7 +71,9 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   }
 })
 
-export default new ApolloClient({
+client = new ApolloClient({
   link: ApolloLink.from([errorLink, authLink, httpLink]),
   cache: new InMemoryCache()
 })
+
+export default client
