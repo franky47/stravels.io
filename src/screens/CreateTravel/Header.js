@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 // Material UI Components
 import { withStyles } from '@material-ui/core'
@@ -51,7 +51,9 @@ const Header = ({
         className={classes.backButton}
         color="inherit"
         aria-label="Back"
-        onClick={history.goBack}
+        component={Link}
+        to="/"
+        replace
       >
         <BackIcon />
       </IconButton>
