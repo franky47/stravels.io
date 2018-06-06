@@ -15,10 +15,9 @@ import ActivityFilterItemView from './ActivityFilterItem'
 import type { ActivityFilterItem } from 'lib/types'
 
 const styles = theme => ({
-  root: {
-    // display: 'block',
-    // margin: '0 auto'
-    // width: '100%'
+  root: {},
+  content: {
+    maxHeight: '50vh'
   }
 })
 
@@ -46,7 +45,7 @@ const ActivityFilter = ({
     maxWidth="xs"
   >
     <DialogTitle>Activity Filter</DialogTitle>
-    <DialogContent>
+    <DialogContent className={classes.content}>
       <List>
         {Object.keys(items).map(item => (
           <ActivityFilterItemView
