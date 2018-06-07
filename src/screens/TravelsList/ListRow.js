@@ -16,6 +16,7 @@ import BikeIcon from '@material-ui/icons/DirectionsBike'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 import { prettifyDateRange } from 'lib/prettify'
+import { byDateChronological } from 'lib/sort'
 import { deleteTravel } from 'state/actions/travels'
 import type { ActivityDetails, TravelID, Travel } from 'lib/types'
 import type { State as ReduxState } from 'state/types'
@@ -67,11 +68,10 @@ const mapStateToProps = (state: ReduxState, { travel }: Props): Object => {
   const inTravel = (activity: ActivityDetails): boolean => {
     return travel.activities.includes(activity.id)
   }
-  const ascendingDate = (a, b) => (a.date > b.date ? 1 : -1)
   const activities: Array<ActivityDetails> = Object.keys(state.activities)
     .map(id => state.activities[id])
     .filter(inTravel)
-    .sort(ascendingDate)
+    .sort(byDateChronological)
   const startDate = activities[0].date
   const endDate = activities[activities.length - 1].date
   return {
@@ -83,7 +83,10 @@ const mapDispatchToProps = dispatch => ({
   deleteTravel: (id: TravelID) => dispatch(deleteTravel(id))
 })
 
-const withRedux = connect(mapStateToProps, mapDispatchToProps)
+const withRedux = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 
 // --
 

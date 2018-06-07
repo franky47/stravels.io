@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button'
 
 import ActivityRow from './ActivityRow'
 import LoadingSpinner from 'components/core/LoadingSpinner'
+import { byDateMostRecentFirst } from 'lib/sort'
 
 import type { ActivityID, ActivitySummary } from 'lib/types'
 
@@ -46,8 +47,6 @@ type Props = {
   +onItemSelect: (id: ActivityID) => void
 }
 
-const mostRecentFirst = (a, b) => (a.date < b.date ? 1 : -1)
-
 const ActivityPicker = ({
   classes,
   activities,
@@ -64,7 +63,7 @@ const ActivityPicker = ({
     <LoadingSpinner className={classes.spinnerHead} active={loadingHead} />
     {activities
       .slice() // make a copy as sort is in-place
-      .sort(mostRecentFirst)
+      .sort(byDateMostRecentFirst)
       .map(activity => (
         <ActivityRow
           key={activity.id}
