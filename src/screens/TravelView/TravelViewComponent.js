@@ -6,9 +6,13 @@ import { Redirect } from 'react-router-dom'
 // Material UI Components
 import { withStyles } from '@material-ui/core/styles'
 
+// Components
 import Header from './Header'
 import MapView from './MapTab/components/MapView'
 import Panel from './Panel/Panel'
+import MetaEditor from './MetaEditorContainer'
+
+// Logic
 import { decodePolyline } from 'lib/mapping'
 import colors from 'lib/colors'
 
@@ -39,17 +43,19 @@ type Props = {
 }
 
 type State = {
-  focusedIndex: number
+  focusedIndex: number,
+  editorOpen: boolean
 }
 
 class TravelView extends React.Component<Props, State> {
   state = {
-    focusedIndex: -1
+    focusedIndex: -1,
+    editorOpen: false
   }
 
   render() {
     const { classes, travel, activities } = this.props
-    const { focusedIndex } = this.state
+    const { focusedIndex, editorOpen } = this.state
     if (travel === null) {
       return <Redirect to="/" />
     }
@@ -60,7 +66,7 @@ class TravelView extends React.Component<Props, State> {
     }))
     return (
       <section className={classes.root + ' screen'}>
-        <Header title={travel.title} onEdit={() => {}} />
+        <Header title={travel.title} onEdit={this.openEditor} />
         <div className={classes.mapView}>
           <MapView
             paths={paths}
@@ -75,6 +81,12 @@ class TravelView extends React.Component<Props, State> {
           focusOn={this.focusOn}
           focusOnNext={this.focusOnNext}
           focusOnPrevious={this.focusOnPrevious}
+        />
+        <MetaEditor
+          open={editorOpen}
+          onClose={this.closeEditor}
+          travelId={travel.id}
+          title={travel.title}
         />
       </section>
     )
@@ -106,6 +118,15 @@ class TravelView extends React.Component<Props, State> {
   }
   focusOn = (index: number) => {
     this.setState({ focusedIndex: index })
+  }
+
+  // --
+
+  openEditor = () => {
+    this.setState({ editorOpen: true })
+  }
+  closeEditor = () => {
+    this.setState({ editorOpen: false })
   }
 }
 

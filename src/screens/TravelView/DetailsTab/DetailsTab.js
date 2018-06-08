@@ -8,7 +8,6 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 
 import ActivityList from './ActivityList'
-import MetaEditor from './MetaEditorContainer'
 
 import type { Travel, ActivityDetails } from 'lib/types'
 
@@ -41,12 +40,6 @@ class DetailsTab extends React.Component<Props, State> {
         </Typography>
         <Button onClick={this.openEditor}>Edit</Button>
         <ActivityList activities={activities} />
-        <MetaEditor
-          open={editorOpen}
-          onClose={this.closeEditor}
-          travelId={travel.id}
-          title={travel.title}
-        />
       </section>
     )
   }
