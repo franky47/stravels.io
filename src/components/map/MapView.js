@@ -11,8 +11,6 @@ import { makeGrid } from './grid'
 import type { MapObject, PathElement } from './mapbox-gl'
 import type { ActivityID } from 'lib/types'
 
-import './MapView.css'
-
 const styles = {
   container: {
     ...makeGrid(),

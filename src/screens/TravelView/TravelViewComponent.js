@@ -8,7 +8,7 @@ import { withStyles } from '@material-ui/core/styles'
 
 // Components
 import Header from './Header'
-import MapView from './MapTab/components/MapView'
+import MapView from 'components/map/MapView'
 import Panel from './Panel/Panel'
 import MetaEditor from './MetaEditorContainer'
 
