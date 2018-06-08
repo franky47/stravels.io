@@ -19,7 +19,8 @@ const styles = theme => ({
   },
   textContainer: {
     flex: 1,
-    textAlign: 'center'
+    textAlign: 'center',
+    minWidth: 0 // https://css-tricks.com/flexbox-truncated-text/
   }
 })
 
@@ -37,7 +38,9 @@ const Navigation = ({ classes, title, date, onPrevious, onNext }: Props) => (
       <ArrowLeft />
     </IconButton>
     <div className={classes.textContainer}>
-      <Typography variant="subheading">{title}</Typography>
+      <Typography variant="subheading" noWrap>
+        {title}
+      </Typography>
       <Typography variant="caption">{date}</Typography>
     </div>
     <IconButton onClick={onNext}>
