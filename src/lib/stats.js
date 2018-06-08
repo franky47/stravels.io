@@ -13,9 +13,9 @@ export type ActivityStats = {
 }
 
 export type Totals = {
-  distance: Meters,
-  elevation: Meters,
-  movingTime: Seconds
+  +distance: Meters,
+  +elevation: Meters,
+  +movingTime: Seconds
 }
 
 export type Averages = {
@@ -28,7 +28,7 @@ export type Maxes = {
 
 // --
 
-export const computeTotals = (activities: Array<ActivityStats>): Totals => {
+export const computeTotals = (activities: ActivityStats[]): Totals => {
   const sumOf = key =>
     activities.map(a => a[key]).reduce((sum, x) => sum + x, 0.0)
   return {
@@ -38,7 +38,7 @@ export const computeTotals = (activities: Array<ActivityStats>): Totals => {
   }
 }
 
-export const computeAverages = (activities: Array<ActivityStats>): Averages => {
+export const computeAverages = (activities: ActivityStats[]): Averages => {
   const sumOf = key =>
     activities.map(a => a[key]).reduce((sum, x) => sum + x, 0.0)
   return {
@@ -46,7 +46,7 @@ export const computeAverages = (activities: Array<ActivityStats>): Averages => {
   }
 }
 
-export const computeMaxes = (activities: Array<ActivityStats>): Maxes => {
+export const computeMaxes = (activities: ActivityStats[]): Maxes => {
   const maxOf = key =>
     activities.map(a => a[key]).reduce((max, x) => Math.max(max, x), 0.0)
   return {

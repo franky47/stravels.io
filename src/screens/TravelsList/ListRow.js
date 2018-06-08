@@ -15,7 +15,7 @@ import IconButton from '@material-ui/core/IconButton'
 import BikeIcon from '@material-ui/icons/DirectionsBike'
 import DeleteIcon from '@material-ui/icons/Delete'
 
-import { prettifyDateRange } from 'lib/prettify'
+import { dateRange as prettifyDateRange } from 'lib/prettify'
 import { byDateChronological } from 'lib/sort'
 import { deleteTravel } from 'state/actions/travels'
 import type { ActivityDetails, TravelID, Travel } from 'lib/types'

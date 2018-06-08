@@ -1,12 +1,14 @@
 // @flow
 
+import type { ActivityStats } from './stats'
+
 export type ActivityID = string
 export type TravelID = string
 
 export type Travel = {
   +id: TravelID,
   +title: string,
-  +activities: Array<ActivityID>
+  +activities: ActivityID[]
 }
 
 export type ActivitySummary = {
@@ -17,20 +19,13 @@ export type ActivitySummary = {
   +type: string
 }
 
-export type ActivityDetails = {
-  +id: ActivityID,
-  +title: string,
-  +date: string,
-  +distance: number,
-  +elevation: number,
+export type ActivityMapping = {
   +startLatLng: string, // encoded
   +endLatLng: string, // encoded
-  +thumbnailUrl: string,
-  +polyline: string,
-  +maxSpeed: number, // m/s
-  +averageSpeed: number, // m/s
-  +movingTime: number // seconds
+  +polyline: string
 }
+
+export type ActivityDetails = ActivitySummary & ActivityStats & ActivityMapping
 
 export type ActivityFilterItem =
   | 'Ride'

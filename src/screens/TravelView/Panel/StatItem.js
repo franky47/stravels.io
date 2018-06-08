@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography'
 
 const styles = theme => ({
   container: {
-    textAlign: 'center'
+    margin: 0
   },
   value: {
     fontSize: '125%'
@@ -24,22 +24,32 @@ const styles = theme => ({
 })
 
 type Props = {
-  +classes: any,
+  +classes: { [key: string]: string },
   +name: string,
   +value: string,
   +unit: ?string
 }
 
 const StatItem = ({ classes, name, value, unit }: Props) => (
-  <div className={classes.container}>
-    <Typography variant="button" className={classes.value} component="div">
+  <li className={classes.container}>
+    <Typography
+      className={classes.value}
+      component="div"
+      // variant="body2"
+      align="center"
+    >
       {value}
-      {unit && <span className={classes.unit}> {unit}</span>}
+      {unit && <span className={classes.unit}> {unit.toUpperCase()}</span>}
     </Typography>
-    <Typography variant="button" className={classes.name} component="div">
-      {name}
+    <Typography
+      // variant="button"
+      className={classes.name}
+      component="div"
+      align="center"
+    >
+      {name.toUpperCase()}
     </Typography>
-  </div>
+  </li>
 )
 
 export default withStyles(styles)(StatItem)

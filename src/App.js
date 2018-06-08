@@ -12,7 +12,7 @@ import UpdateNotifier from 'components/core/UpdateNotifier'
 // Screens
 import LoginScreen from 'screens/Login/LoginContainer'
 import TravelsList from 'screens/TravelsList/TravelsList'
-import TravelView from 'screens/TravelView/TravelView'
+import TravelView from 'screens/TravelView/TravelViewContainer'
 import CreateTravel from 'screens/CreateTravel/CreateTravelContainer'
 
 // Material UI Theming

@@ -1,5 +1,9 @@
 // @flow
 
+import type { MetersPerSecond, Meters, Seconds } from './stats'
+
+// Dates --
+
 const months = [
   'January',
   'February',
@@ -39,12 +43,9 @@ const formatDay = (date: Date): string => {
 }
 const formatMonth = (date: Date): string => months[date.getMonth()]
 
-export const prettifyDateRange = (
-  a: Date | string,
-  b: Date | string
-): string => {
-  const start = typeof a === 'string' ? new Date(a) : a
-  const end = typeof b === 'string' ? new Date(b) : b
+export const dateRange = (a: string, b: string): string => {
+  const start = new Date(a)
+  const end = new Date(b)
 
   if (start.getFullYear() !== end.getFullYear()) {
     // Skip the day numbers
@@ -59,5 +60,32 @@ export const prettifyDateRange = (
   }
   const lhs = formatDay(start)
   const rhs = formatDay(end)
+  if (a === b) {
+    return `${lhs} ${formatMonth(start)} ${start.getFullYear()}`
+  }
   return `${lhs} - ${rhs} ${formatMonth(start)} ${start.getFullYear()}`
+}
+
+// Stats --
+
+export const distanceAsKm = (distance: Meters = 0): string => {
+  return (distance * 0.001).toFixed(2)
+}
+
+export const elevation = (elevation: Meters = 0): string => {
+  return elevation.toFixed(0)
+}
+
+export const duration = (duration: Seconds = 0): string => {
+  const h = Math.floor(duration / 3600)
+  const m = Math.floor((duration - h * 3600) / 60)
+  const s = duration - (h * 3600 + m * 60)
+  const hs = h.toFixed(0).padStart(2, '0')
+  const ms = m.toFixed(0).padStart(2, '0')
+  const ss = s.toFixed(0).padStart(2, '0')
+  return `${hs}:${ms}:${ss}`
+}
+
+export const speed = (speed: MetersPerSecond): string => {
+  return (speed * 3.6).toFixed(1)
 }

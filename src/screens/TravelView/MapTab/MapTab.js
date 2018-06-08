@@ -1,10 +1,9 @@
 // @flow
 import * as React from 'react'
 
-import { decodePolyline } from './mappingUtility'
+import { decodePolyline } from 'lib/mapping'
 
 import MapView from './components/MapView'
-import Footer from './components/Footer'
 
 // Types
 import type { ActivityDetails } from 'lib/types'
@@ -41,38 +40,12 @@ export default class MapTab extends React.Component<Props, State> {
     return (
       <div className="map-tab">
         <MapView paths={paths} focusedIndex={focused} focusOn={this.focusOn} />
-        <Footer
-          focusedIndex={focused}
-          sections={sections}
-          onPrev={this.onPrev}
-          onNext={this.onNext}
-          onBack={this.onBack}
-          focusOn={this.focusOn}
-        />
       </div>
     )
   }
-
   focusOn = (index: number) => {
     this.setState({
       focused: index
-    })
-  }
-  onPrev = () => {
-    const l = this.props.activities.length
-
-    this.setState(prevState => ({
-      focused: (prevState.focused - 1 + l) % l
-    }))
-  }
-  onNext = () => {
-    this.setState(prevState => ({
-      focused: (prevState.focused + 1) % this.props.activities.length
-    }))
-  }
-  onBack = () => {
-    this.setState({
-      focused: -1
     })
   }
 }

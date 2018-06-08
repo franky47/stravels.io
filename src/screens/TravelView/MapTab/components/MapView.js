@@ -1,31 +1,49 @@
 // @flow
+
 import React from 'react'
+import classNames from 'classnames'
 import * as mapbox from './mapbox-gl'
-import type { ActivityId, MapObject, PathElement } from './mapbox-gl'
+
+import { withStyles } from '@material-ui/core'
+import { makeGrid } from './grid'
+
+// Types
+import type { MapObject, PathElement } from './mapbox-gl'
+import type { ActivityID } from 'lib/types'
 
 import './MapView.css'
 
 const styles = {
-  outer: {
-    flex: 1
-  },
-  inner: (visible: boolean) => ({
+  container: {
+    ...makeGrid(),
     height: '100%',
-    transition: 'opacity 0.2s ease',
-    opacity: visible ? 1.0 : 0.0
-  })
+    width: '100%'
+  },
+  mapView: {
+    height: '100%',
+    width: '100%',
+    transition: 'opacity 0.2s ease'
+  },
+  visible: {
+    opacity: 1.0
+  },
+  hidden: {
+    opacity: 0.0
+  }
 }
 
 type Props = {
+  +classes: { [key: string]: any },
   +paths: Array<PathElement>,
   +focusedIndex: number,
   +focusOn: (index: number) => void
 }
+
 type State = {
   visible: boolean
 }
 
-export default class MapView extends React.Component<Props, State> {
+class MapView extends React.Component<Props, State> {
   // Class field types
   map: MapObject
   mapContainerId: string
@@ -53,10 +71,16 @@ export default class MapView extends React.Component<Props, State> {
   }
 
   render() {
+    const { classes } = this.props
+    const { visible } = this.state
     return (
-      <div style={styles.outer} className="grid-background">
+      <div className={classes.container}>
         <div
-          style={styles.inner(this.state.visible)}
+          className={classNames({
+            [classes.mapView]: true,
+            [classes.visible]: visible,
+            [classes.hidden]: !visible
+          })}
           id={this.mapContainerId}
         />
       </div>
@@ -67,7 +91,7 @@ export default class MapView extends React.Component<Props, State> {
     this._updatePolylines({ ...this.props, paths: [] })
     this.setState({ visible: true })
   }
-  _focusOn = (id: ActivityId) => {
+  _focusOn = (id: ActivityID) => {
     const index = this.props.paths.findIndex(e => e.id === id)
     this.props.focusOn(index)
   }
@@ -81,13 +105,13 @@ export default class MapView extends React.Component<Props, State> {
     layersToDel.forEach(this._removePolyline)
     return layersToAdd.length > 0 || layersToDel.length > 0
   }
-  _addPolyline = (id: ActivityId) => {
+  _addPolyline = (id: ActivityID) => {
     const pathElement = this.props.paths.find(p => p.id === id)
     if (pathElement) {
       mapbox.addPolylineLayer(this.map, pathElement, this._focusOn)
     }
   }
-  _removePolyline = (id: ActivityId) => {
+  _removePolyline = (id: ActivityID) => {
     mapbox.removePolylineLayer(this.map, id, this._focusOn)
   }
 
@@ -106,3 +130,5 @@ export default class MapView extends React.Component<Props, State> {
     }
   }
 }
+
+export default withStyles(styles)(MapView)

@@ -38,7 +38,7 @@ const styles = theme => ({
 
 type Props = {
   +classes: any,
-  +activities: Array<ActivityDetails>
+  +activities: ActivityDetails[]
 }
 
 const ActivityList = ({ classes, activities = [] }: Props) => {

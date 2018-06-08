@@ -1,7 +1,10 @@
 // @flow
-import React from 'react'
 
-import './TravelBar.css'
+import * as React from 'react'
+import classNames from 'classnames'
+import { withStyles } from '@material-ui/core'
+
+// Type Definitions --
 
 type Section = {
   +distance: number,
@@ -14,10 +17,9 @@ type Line = {
   +color: string
 }
 
-type Sections = Array<Section>
-type Lines = Array<Line>
+// --
 
-const transformSections = (sections: Sections): Lines => {
+const transformSections = (sections: Section[]): Line[] => {
   const sum = sections.reduce((sum, section) => sum + section.distance, 0)
   const out = []
   let x = 0
@@ -33,9 +35,14 @@ const transformSections = (sections: Sections): Lines => {
   return out
 }
 
-// --
+// -----------------------------------------------------------------------------
 
-class ClickableLine extends React.Component<any> {
+type ClickableLineProps = Line & {
+  +index: number,
+  +focusOn: (index: number) => void
+}
+
+class ClickableLine extends React.Component<ClickableLineProps> {
   onClick = () => {
     this.props.focusOn(this.props.index)
   }
@@ -55,15 +62,39 @@ class ClickableLine extends React.Component<any> {
   }
 }
 
-// --
+// -----------------------------------------------------------------------------
+
+const styles = theme => ({
+  root: {
+    display: 'block',
+    width: '100%',
+    height: 8,
+    overflow: 'visible',
+    cursor: 'pointer',
+
+    '& line, & path': {
+      strokeWidth: 8,
+      transition: 'all 0.2s ease-out'
+    }
+  },
+  focus: {
+    opacity: 0.1
+  },
+  cursor: {
+    transition: 'all 0.2s ease-out',
+    strokeLinecap: 'round',
+    pointerEvents: 'none'
+  }
+})
 
 type Props = {
-  sections: Sections,
-  focusedIndex: number,
-  focusOn: (index: number) => void
+  +classes: { [key: string]: string },
+  +sections: Section[],
+  +focusedIndex: number,
+  +focusOn: (index: number) => void
 }
 
-export default ({ sections, focusedIndex, focusOn }: Props) => {
+const TravelBar = ({ classes, sections, focusedIndex, focusOn }: Props) => {
   const focus = focusedIndex >= 0
   const lines = transformSections(sections)
   const cursor = focus
@@ -73,16 +104,18 @@ export default ({ sections, focusedIndex, focusOn }: Props) => {
         x2: 1.0,
         color: '#ffffff00'
       }
-  const overviewClass = `overview ${focus ? 'focused' : ''}`
+
   return (
     <svg
-      // version="1.1"
-      // xmlns="http://www.w3.org/2000/svg"
-      className="travel-bar"
+      className={classes.root}
       viewBox="0 0 1 1"
       preserveAspectRatio="none" // Allow scaling
     >
-      <g className={overviewClass}>
+      <g
+        className={classNames({
+          [classes.focus]: focus
+        })}
+      >
         {lines.map(({ x1, x2, color }, i) => (
           <ClickableLine
             key={i}
@@ -95,7 +128,7 @@ export default ({ sections, focusedIndex, focusOn }: Props) => {
         ))}
       </g>
       <path
-        className="cursor"
+        className={classes.cursor}
         d={`M ${cursor.x1} 0.5 L ${cursor.x2} 0.5`}
         stroke={cursor.color}
         vectorEffect="non-scaling-stroke"
@@ -103,3 +136,5 @@ export default ({ sections, focusedIndex, focusOn }: Props) => {
     </svg>
   )
 }
+
+export default withStyles(styles)(TravelBar)
