@@ -86,6 +86,8 @@ const Panel = ({
         date={date}
         onNext={focusOnNext}
         onPrevious={focusOnPrevious}
+        zoomOutPrevious={focusedIndex === 0}
+        zoomOutNext={focusedIndex === activities.length - 1}
       />
       <Stats
         distance={distance}

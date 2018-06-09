@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton'
 // Icons
 import ArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import ArrowRight from '@material-ui/icons/KeyboardArrowRight'
+import ZoomOutIcon from '@material-ui/icons/ZoomOutMap'
 
 const styles = theme => ({
   root: {
@@ -29,13 +30,23 @@ type Props = {
   +title: string,
   +date: string,
   +onPrevious: () => void,
-  +onNext: () => void
+  +onNext: () => void,
+  +zoomOutPrevious: boolean,
+  +zoomOutNext: boolean
 }
 
-const Navigation = ({ classes, title, date, onPrevious, onNext }: Props) => (
+const Navigation = ({
+  classes,
+  title,
+  date,
+  onPrevious,
+  onNext,
+  zoomOutPrevious,
+  zoomOutNext
+}: Props) => (
   <div className={classes.root}>
     <IconButton onClick={onPrevious}>
-      <ArrowLeft />
+      {zoomOutPrevious ? <ZoomOutIcon /> : <ArrowLeft />}
     </IconButton>
     <div className={classes.textContainer}>
       <Typography variant="subheading" noWrap>
@@ -44,7 +55,7 @@ const Navigation = ({ classes, title, date, onPrevious, onNext }: Props) => (
       <Typography variant="caption">{date}</Typography>
     </div>
     <IconButton onClick={onNext}>
-      <ArrowRight />
+      {zoomOutNext ? <ZoomOutIcon /> : <ArrowRight />}
     </IconButton>
   </div>
 )
