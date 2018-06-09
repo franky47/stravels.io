@@ -29,52 +29,36 @@ const styles = theme => ({
 type Props = {
   +url: string,
   +classes: Object,
-  +className: string
-}
-type State = {
-  loading: boolean
+  +className: string,
+  +loading: boolean,
+  +onClick: () => void
 }
 
-class LoginButton extends React.Component<Props, State> {
-  state = {
-    loading: false
-  }
-
-  render() {
-    const { url, classes, className } = this.props
-    const { loading } = this.state
-    return (
-      <Button
-        color="secondary"
-        variant="raised"
-        size="large"
-        href={url}
-        onClick={this.setLoading}
-        className={className}
-      >
-        <span
-          className={[
-            loading ? classes.hidden : classes.visible,
-            classes.text
-          ].join(' ')}
-        >
-          Login with Strava
-        </span>
-        <div className={classes.spinner}>
-          <CircularProgress
-            color="inherit"
-            size={24}
-            className={loading ? classes.visible : classes.hidden}
-          />
-        </div>
-      </Button>
-    )
-  }
-  setLoading = () => {
-    this.setState(prevState => ({
-      loading: !prevState.loading
-    }))
-  }
-}
+const LoginButton = ({ url, classes, className, loading, onClick }: Props) => (
+  <Button
+    color="secondary"
+    variant="raised"
+    size="large"
+    href={url}
+    onClick={onClick}
+    className={className}
+  >
+    <span
+      className={[
+        loading ? classes.hidden : classes.visible,
+        classes.text
+      ].join(' ')}
+    >
+      Login with Strava
+    </span>
+    <div className={classes.spinner}>
+      <CircularProgress
+        color="inherit"
+        size={24}
+        className={loading ? classes.visible : classes.hidden}
+      />
+    </div>
+  </Button>
+)
 
 export default withStyles(styles)(LoginButton)

@@ -99,6 +99,7 @@ class Login extends React.Component<Props, State> {
           url={this._getRequestURL()}
           loading={loading}
           className={classes.button}
+          onClick={this._setLoading}
         />
         <img
           src={poweredByStrava}
@@ -122,8 +123,7 @@ class Login extends React.Component<Props, State> {
     }
     // Extract previous location from state traversal
     const from = decodeStateTraversal(state)
-    this.setState({ from })
-    setTimeout(() => this.setState({ loading: true }), 200)
+    this.setState({ from, loading: true })
 
     this.props
       .loginWithCode({
@@ -138,6 +138,9 @@ class Login extends React.Component<Props, State> {
           redirect: true // Activate redirection
         })
       })
+  }
+  _setLoading = () => {
+    this.setState({ loading: true })
   }
 }
 
