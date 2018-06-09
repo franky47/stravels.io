@@ -49,6 +49,7 @@ const ActivityFilter = ({
       <List>
         {Object.keys(items).map(item => (
           <ActivityFilterItemView
+            key={item}
             name={item}
             state={items[item]}
             onToggle={toggleActivityFilterItem}
