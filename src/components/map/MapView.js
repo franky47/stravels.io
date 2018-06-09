@@ -55,8 +55,8 @@ class MapView extends React.Component<Props, State> {
     this.mapContainerId = Math.floor(Math.random() * (1 << 16)).toString(16)
   }
 
-  componentDidMount() {
-    this.map = mapbox.createMap(this.mapContainerId)
+  async componentDidMount() {
+    this.map = await mapbox.createMap(this.mapContainerId)
     this.map.on('load', this._onMapLoad)
     this._fitToVisiblePolylines(true)
   }

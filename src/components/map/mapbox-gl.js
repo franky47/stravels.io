@@ -1,20 +1,16 @@
 // @flow
 
-import mapboxgl from 'mapbox-gl'
-
 import { getMultiBoundingBox, getSingleBoundingBox } from 'lib/mapping'
 import './mapbox-gl.css'
 
 // Types
+import type { Map as MapboxMap } from 'mapbox-gl'
 import type { PolylineArray } from 'lib/mapping'
 import type { ActivityID } from 'lib/types'
 
-mapboxgl.accessToken =
-  'pk.eyJ1IjoiZnJhbmt5NDciLCJhIjoiY2oxZXp4a2FvMDAxZzJwcW50dmlyb292cyJ9.fL0Ze14CVgf2LcdM-Kmv7w'
-
 // Types --
 
-export type MapObject = mapboxgl.Map
+export type MapObject = MapboxMap
 
 export type PathElement = {
   +id: ActivityID,
@@ -24,8 +20,10 @@ export type PathElement = {
 
 // -----------------------------------------------------------------------------
 
-export const createMap = (container: HTMLElement | string): MapObject =>
-  new mapboxgl.Map({
+export const createMap = async (container: HTMLElement | string): MapObject => {
+  const mapboxgl = await import(/*webpackChunkName: 'map'*/ 'mapbox-gl')
+  mapboxgl.accessToken = process.env.REACT_APP_MAPBOXGL_TOKEN
+  return new mapboxgl.Map({
     container,
     // style: 'mapbox://styles/mapbox/dark-v9',
     // style: 'mapbox://styles/mapbox/light-v9',
@@ -35,6 +33,7 @@ export const createMap = (container: HTMLElement | string): MapObject =>
     pitchWithRotate: false,
     dragRotate: false
   })
+}
 
 export const destroyMap = (map: MapObject) => {
   map.remove()
