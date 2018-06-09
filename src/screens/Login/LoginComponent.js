@@ -6,6 +6,7 @@ import { Redirect } from 'react-router'
 
 // Material UI Components
 import { withStyles } from '@material-ui/core'
+import Typography from '@material-ui/core/Typography'
 
 import { qsDecode } from 'lib/utility'
 import { decodeStateTraversal, getStravaOAuthURL } from 'lib/login'
@@ -23,17 +24,24 @@ const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
+    background: `linear-gradient(125deg, #E2FFE2, #FFEFEA)`
   },
   logo: {
     position: 'absolute',
     top: '40vh',
-    transform: 'translateY(-50%)'
+    transform: 'translateY(-50%)',
+    textAlign: 'center'
+  },
+  title: {
+    fontWeight: 300,
+    color: 'rgba(0, 0, 0, 0.5)'
   },
   button: {
     position: 'absolute',
     top: '70vh',
-    transform: 'translateY(-50%)'
+    transform: 'translateY(-50%)',
+    background: `linear-gradient(125deg, #ff5722, #fc4c02)`
   },
   poweredByStrava: {
     maxHeight: 30,
@@ -77,7 +85,16 @@ class Login extends React.Component<Props, State> {
     }
     return (
       <section className={classNames(classes.root, 'screen')}>
-        <Logo size={80} className={classes.logo} />
+        <div className={classes.logo}>
+          <Logo size={80} />
+          <Typography
+            align="center"
+            variant="headline"
+            className={classes.title}
+          >
+            Stravels
+          </Typography>
+        </div>
         <LoginButton
           url={this._getRequestURL()}
           loading={loading}
