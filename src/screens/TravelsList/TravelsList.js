@@ -46,10 +46,14 @@ class TravelsList extends React.Component<Props, State> {
 
     return (
       <section className={classNames(classes.root, 'screen')}>
-        <Header showEdit={travels.length > 0} toggleEdit={this.toggleEdit} />
+        <Header
+          showEdit={travels.length > 0}
+          toggleEdit={this.toggleEdit}
+          editing={editing}
+        />
         {travels.length === 0 && <EmptyListPlaceholder />}
         <div className={classes.scroll}>
-        <List travels={travels} editing={editing} />
+          <List travels={travels} editing={editing} />
         </div>
         <CreateTravelFAB moveUp={moveFabUp} />
       </section>

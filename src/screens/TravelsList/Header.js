@@ -2,6 +2,7 @@
 
 import React from 'react'
 import classNames from 'classnames'
+import { Link } from 'react-router-dom'
 
 // Material UI Components
 import { withStyles } from '@material-ui/core/styles'
@@ -12,8 +13,10 @@ import IconButton from '@material-ui/core/IconButton'
 
 // Icons
 // import MenuIcon from '@material-ui/icons/Menu'
-import EditIcon from '@material-ui/icons/Edit'
 import Logo from 'components/core/Logo'
+import AddIcon from '@material-ui/icons/Add'
+import CheckIcon from '@material-ui/icons/Check'
+import EditIcon from '@material-ui/icons/Edit'
 
 const styles = theme => ({
   menuButton: {
@@ -28,13 +31,10 @@ const styles = theme => ({
   flex: {
     flex: 1
   },
-  editButton: {
-    marginRight: -12
-  },
-  bottomNav: {
-    position: 'fixed',
-    bottom: 0,
-    width: '100%'
+  toolbar: {
+    '&:last-child': {
+      marginRight: -12
+    }
   },
   primaryText: {
     color: 'white'
@@ -44,15 +44,16 @@ const styles = theme => ({
 type Props = {
   +classes: Object,
   +toggleEdit: () => void,
+  +editing: boolean,
   +showEdit: boolean
 }
 
 class Header extends React.Component<Props> {
   render() {
-    const { classes, toggleEdit, showEdit } = this.props
+    const { classes, toggleEdit, showEdit, editing } = this.props
     return (
       <AppBar position="sticky" color="primary">
-        <Toolbar>
+        <Toolbar className={classes.toolbar}>
           <Logo color="white" size={22} className={classes.logo} />
           {/* <IconButton
             className={classNames(classes.menuButton, classes.primaryText)}
@@ -67,12 +68,16 @@ class Header extends React.Component<Props> {
           >
             My travels
           </Typography>
+          <IconButton
+            className={classes.primaryText}
+            component={Link}
+            to="/create"
+          >
+            <AddIcon />
+          </IconButton>
           {showEdit && (
-            <IconButton
-              className={classNames(classes.editButton, classes.primaryText)}
-              onClick={toggleEdit}
-            >
-              <EditIcon />
+            <IconButton className={classes.primaryText} onClick={toggleEdit}>
+              {editing ? <CheckIcon /> : <EditIcon />}
             </IconButton>
           )}
         </Toolbar>
