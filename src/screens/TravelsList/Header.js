@@ -19,8 +19,8 @@ import EditIcon from '@material-ui/icons/Edit'
 
 const styles = theme => ({
   logo: {
-    marginLeft: 4,
-    marginRight: 14
+    marginLeft: 2,
+    marginRight: 16
   },
   flex: {
     flex: 1
