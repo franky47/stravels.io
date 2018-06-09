@@ -13,29 +13,34 @@ import IconButton from '@material-ui/core/IconButton'
 // Icons
 import BackIcon from '@material-ui/icons/ArrowBack'
 import EditIcon from '@material-ui/icons/Edit'
+import ZoomOutIcon from '@material-ui/icons/ZoomOutMap'
 
 const styles = theme => ({
+  toolbar: {
+    '&:last-child': {
+      marginRight: -12
+    }
+  },
   backButton: {
     marginLeft: -12,
     marginRight: 20
   },
   flex: {
     flex: 1
-  },
-  editButton: {
-    marginRight: -12
   }
 })
 
 type Props = {
   +classes: { [key: string]: string },
   +title: string,
-  +onEdit: () => void
+  +onEdit: () => void,
+  +focused: boolean,
+  +onResetFocus: () => void
 }
 
-const Header = ({ classes, title, onEdit }: Props) => (
+const Header = ({ classes, title, onEdit, focused, onResetFocus }: Props) => (
   <AppBar color="default" position="static">
-    <Toolbar>
+    <Toolbar className={classes.toolbar}>
       <IconButton
         className={classes.backButton}
         color="inherit"
@@ -49,11 +54,13 @@ const Header = ({ classes, title, onEdit }: Props) => (
       <Typography variant="title" noWrap className={classes.flex}>
         {title}
       </Typography>
-      <IconButton
-        className={classes.editButton}
-        aria-label="Edit"
-        onClick={onEdit}
-      >
+
+      {focused && (
+        <IconButton onClick={onResetFocus} aria-label="Overview">
+          <ZoomOutIcon />
+        </IconButton>
+      )}
+      <IconButton aria-label="Edit" onClick={onEdit}>
         <EditIcon />
       </IconButton>
     </Toolbar>

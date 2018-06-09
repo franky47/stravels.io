@@ -66,7 +66,12 @@ class TravelView extends React.Component<Props, State> {
     }))
     return (
       <section className={classes.root + ' screen'}>
-        <Header title={travel.title} onEdit={this.openEditor} />
+        <Header
+          title={travel.title}
+          onEdit={this.openEditor}
+          focused={focusedIndex >= 0}
+          onResetFocus={this.resetFocus}
+        />
         <div className={classes.mapView}>
           <MapView
             paths={paths}
@@ -118,6 +123,9 @@ class TravelView extends React.Component<Props, State> {
   }
   focusOn = (index: number) => {
     this.setState({ focusedIndex: index })
+  }
+  resetFocus = () => {
+    this.focusOn(-1)
   }
 
   // --
