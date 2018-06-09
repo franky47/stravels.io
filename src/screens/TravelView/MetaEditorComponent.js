@@ -8,8 +8,14 @@ import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
-import TextField from '@material-ui/core/TextField'
+// import TextField from '@material-ui/core/TextField'
+// import Input from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
+import FormHelperText from '@material-ui/core/FormHelperText'
+import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
+
+import Input from 'components/core/AutoSelectInput'
 
 import type { TravelID } from 'lib/types'
 
@@ -46,17 +52,17 @@ class MetaEditor extends React.Component<Props, State> {
       <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
         <DialogTitle>Edit</DialogTitle>
         <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="title"
-            label="Title"
-            type="text"
-            value={title}
-            onChange={this.onChange}
-            multiline={false}
-            fullWidth
-          />
+          <FormControl fullWidth margin="dense">
+            <InputLabel htmlFor="title">Title</InputLabel>
+            <Input
+              id="title"
+              type="text"
+              multiline={false}
+              autoFocus
+              value={title}
+              onChange={this.onChange}
+            />
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
