@@ -15,7 +15,6 @@ import CheckIcon from '@material-ui/icons/Check'
 import type { ActivityID } from 'lib/types'
 
 const styles = theme => {
-  console.dir(theme)
   return {
     root: {
       display: 'flex',
