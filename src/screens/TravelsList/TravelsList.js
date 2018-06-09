@@ -19,6 +19,10 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: theme.palette.background.paper
+  },
+  scroll: {
+    flex: 1,
+    overflow: 'auto'
   }
 })
 
@@ -44,7 +48,9 @@ class TravelsList extends React.Component<Props, State> {
       <section className={classNames(classes.root, 'screen')}>
         <Header showEdit={travels.length > 0} toggleEdit={this.toggleEdit} />
         {travels.length === 0 && <EmptyListPlaceholder />}
+        <div className={classes.scroll}>
         <List travels={travels} editing={editing} />
+        </div>
         <CreateTravelFAB moveUp={moveFabUp} />
       </section>
     )
