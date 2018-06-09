@@ -17,7 +17,7 @@ import ZoomOutIcon from '@material-ui/icons/ZoomOutMap'
 
 const styles = theme => ({
   toolbar: {
-    '&:last-child': {
+    '& > *:last-child': {
       marginRight: -12
     }
   },

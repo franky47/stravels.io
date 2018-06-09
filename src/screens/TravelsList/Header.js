@@ -12,27 +12,21 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 
 // Icons
-// import MenuIcon from '@material-ui/icons/Menu'
 import Logo from 'components/core/Logo'
 import AddIcon from '@material-ui/icons/Add'
 import CheckIcon from '@material-ui/icons/Check'
 import EditIcon from '@material-ui/icons/Edit'
 
 const styles = theme => ({
-  menuButton: {
-    marginLeft: -4,
-    marginRight: 10,
-    color: 'white'
-  },
   logo: {
     marginLeft: 4,
-    marginRight: theme.spacing.unit * 2
+    marginRight: 14
   },
   flex: {
     flex: 1
   },
   toolbar: {
-    '&:last-child': {
+    '& > *:last-child': {
       marginRight: -12
     }
   },
@@ -54,13 +48,7 @@ class Header extends React.Component<Props> {
     return (
       <AppBar position="sticky" color="primary">
         <Toolbar className={classes.toolbar}>
-          <Logo color="white" size={22} className={classes.logo} />
-          {/* <IconButton
-            className={classNames(classes.menuButton, classes.primaryText)}
-            color="inherit"
-          >
-            <MenuIcon />
-          </IconButton> */}
+          <Logo color="white" size={24} className={classes.logo} />
           <Typography
             variant="title"
             noWrap
