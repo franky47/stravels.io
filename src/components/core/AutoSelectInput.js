@@ -1,8 +1,12 @@
+// @flow
+
 import * as React from 'react'
 
 import Input from '@material-ui/core/Input'
 
-export default class AutoSelectInput extends React.Component {
+export default class AutoSelectInput extends React.Component<any> {
+  ref: ?HTMLInputElement
+
   componentDidMount() {
     this.autoSelect()
   }
@@ -11,13 +15,13 @@ export default class AutoSelectInput extends React.Component {
     return <Input {...this.props} inputRef={this.createRef} />
   }
 
-  createRef = ref => {
+  createRef = (ref: HTMLInputElement) => {
     this.ref = ref
   }
   autoSelect = () => {
     if (!this.ref) {
       return
     }
-    this.ref.select()
+    this.ref.setSelectionRange(0, this.ref.value.length)
   }
 }
