@@ -65,7 +65,7 @@ export default {
     try {
       const tokens = authState.jwt.split('.')
       const body = JSON.parse(b64decode(tokens[1]))
-      return body.exp < Date.now()
+      return body.exp < Date.now() * 0.001
     } catch (_) {
       return true // Invalid JWT
     }
