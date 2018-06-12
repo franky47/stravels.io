@@ -2,6 +2,7 @@ import * as React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Provider as StoreProvider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
+import { reauthenticate } from './graphql'
 // import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import auth from 'lib/auth'
@@ -29,6 +30,10 @@ class App extends React.Component {
     super(props)
     // window.serviceWorkerEvents = this.props.serviceWorkerEvents
     auth.init()
+    if (auth.hasExpired) {
+      reauthenticate(this.props.client)
+    }
+
     this.props.serviceWorkerEvents.on('updateAvailable', () => {
       this.setState({
         updateAvailable: true

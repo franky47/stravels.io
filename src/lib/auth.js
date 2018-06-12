@@ -1,5 +1,7 @@
 // @flow
 
+import { decode as b64decode } from './base64'
+
 export type JWT = string
 
 type AuthState = {
@@ -52,5 +54,20 @@ export default {
   },
   get authenticated(): boolean {
     return authState.jwt !== null
+  },
+
+  // --
+
+  get hasExpired(): boolean {
+    if (!authState.jwt) {
+      return true
+    }
+    try {
+      const tokens = authState.jwt.split('.')
+      const body = JSON.parse(b64decode(tokens[1]))
+      return body.exp < Date.now()
+    } catch (_) {
+      return true // Invalid JWT
+    }
   }
 }

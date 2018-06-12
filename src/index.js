@@ -14,7 +14,7 @@ import App from './App'
 const RootComponent = () => (
   <ApolloProvider client={graphqlClient}>
     <AppContainer>
-      <App serviceWorkerEvents={swEvents} />
+      <App serviceWorkerEvents={swEvents} client={graphqlClient} />
     </AppContainer>
   </ApolloProvider>
 )

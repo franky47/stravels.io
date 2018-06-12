@@ -27,11 +27,24 @@ const authLink = setContext((_, { headers }) => {
   }
 })
 
-const refreshToken = gql`
-  mutation {
-    jwt: refreshToken
-  }
-`
+export const reauthenticate = (client: any): Promise<> => {
+  console.log('Reauthenticating...')
+  return client
+    .mutate({
+      mutation: gql`
+        mutation {
+          jwt: refreshToken
+        }
+      `
+    })
+    .then(({ data }) => {
+      if (data && data.jwt) {
+        auth.authenticate(data.jwt)
+      } else {
+        throw new Error('Invalid response')
+      }
+    })
+}
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
@@ -50,18 +63,10 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 
     graphQLErrors.forEach(({ data }) => {
       if (data && data.reason === 'jwt expired') {
-        console.log('Reauthenticating...')
-        client
-          .mutate({
-            mutation: refreshToken
-          })
-          .then(({ data }) => {
-            if (data && data.jwt) {
-              auth.authenticate(data.jwt)
-              window.location.reload()
-            } else {
-              window.location.replace('/login')
-            }
+        reauthenticate()
+          .then(window.location.reload)
+          .catch(() => {
+            window.location.replace('/login')
           })
       }
     })
