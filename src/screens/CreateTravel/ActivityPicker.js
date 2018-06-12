@@ -43,6 +43,7 @@ type Props = {
   +selected: Set<ActivityID>,
   +loadingHead: boolean,
   +loadingTail: boolean,
+  +hasMore: boolean,
   +onLoadMore: () => void,
   +onItemSelect: (id: ActivityID) => void
 }
@@ -54,31 +55,35 @@ const ActivityPicker = ({
   onItemSelect,
   onLoadMore,
   loadingHead,
-  loadingTail
-}: Props) => (
-  <List
-    className={classes.root}
-    subheader={<ListSubheader disableSticky>Select activities</ListSubheader>}
-  >
-    <LoadingSpinner className={classes.spinnerHead} active={loadingHead} />
-    {activities
-      .slice() // make a copy as sort is in-place
-      .sort(byDateMostRecentFirst)
-      .map(activity => (
-        <ActivityRow
-          key={activity.id}
-          activity={activity}
-          onClick={onItemSelect}
-          selected={selected.has(activity.id)}
-        />
-      ))}
-    {activities.length > 0 && (
-      <Button onClick={onLoadMore} className={classes.loadMoreButton}>
-        Load more
-      </Button>
-    )}
-    <LoadingSpinner className={classes.spinnerTail} active={loadingTail} />
-  </List>
-)
+  loadingTail,
+  hasMore
+}: Props) => {
+  const showLoadMoreButton = !loadingTail && hasMore && activities.length > 0
+  return (
+    <List
+      className={classes.root}
+      subheader={<ListSubheader disableSticky>Select activities</ListSubheader>}
+    >
+      <LoadingSpinner className={classes.spinnerHead} active={loadingHead} />
+      {activities
+        .slice() // make a copy as sort is in-place
+        .sort(byDateMostRecentFirst)
+        .map(activity => (
+          <ActivityRow
+            key={activity.id}
+            activity={activity}
+            onClick={onItemSelect}
+            selected={selected.has(activity.id)}
+          />
+        ))}
+      {showLoadMoreButton && (
+        <Button onClick={onLoadMore} className={classes.loadMoreButton}>
+          Load more
+        </Button>
+      )}
+      <LoadingSpinner className={classes.spinnerTail} active={loadingTail} />
+    </List>
+  )
+}
 
 export default withStyles(styles)(ActivityPicker)

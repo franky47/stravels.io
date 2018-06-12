@@ -39,6 +39,7 @@ type Props = {
   +loadActivity: (id: ActivityID) => Promise<ActivityDetails>,
   +loading: boolean,
   +error: any,
+  +hasMore: boolean,
   // Redux-injected
   +hasActivity: (id: ActivityID) => boolean,
   +activityFilter: (activity: ActivitySummary) => boolean,
@@ -64,7 +65,8 @@ class CreateTravel extends React.Component<Props, State> {
       activityFilter,
       loadMore,
       loading,
-      error
+      error,
+      hasMore
     } = this.props
     const { selectedActivities, filterDialogOpen } = this.state
     const loadingHead = loading && activities.length === 0
@@ -87,6 +89,7 @@ class CreateTravel extends React.Component<Props, State> {
             loadingHead={loadingHead}
             loadingTail={loadingTail}
             onLoadMore={loadMore}
+            hasMore={hasMore}
           />
         </div>
         <Slide

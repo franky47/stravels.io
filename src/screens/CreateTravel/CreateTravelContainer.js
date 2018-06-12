@@ -39,7 +39,10 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   }
 })
 
-const withRedux = connect(mapStateToProps, mapDispatchToProps)
+const withRedux = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 
 // GraphQL --
 
@@ -90,11 +93,16 @@ const withGraphQL = Component => ({ ...props }) => (
   <Query
     query={getActivitiesQuery}
     variables={{
-      before: '2018-08-01' // new Date().toISOString() // issue: this makes it re-render/re-query the list
+      before: null // Require head
     }}
+    notifyOnNetworkStatusChange // Set `loading` when calling fetchMore
   >
     {({ loading, error, data, client, fetchMore }) => {
-      const activities = loading || error ? [] : data.payload.activities
+      const activities =
+        data && data.payload && data.payload.activities
+          ? data.payload.activities
+          : []
+      const hasMore = data && data.payload ? data.payload.hasMore : false
       const loadActivity = (id: ActivityID): Promise<ActivityDetails> => {
         return client
           .query({
@@ -132,6 +140,7 @@ const withGraphQL = Component => ({ ...props }) => (
           loadMore={loadMore}
           loadActivity={loadActivity}
           error={error}
+          hasMore={hasMore}
         />
       )
     }}
