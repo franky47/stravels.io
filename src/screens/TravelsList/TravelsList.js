@@ -52,7 +52,7 @@ class TravelsList extends React.Component<Props, State> {
           editing={editing}
         />
         {travels.length === 0 && <EmptyListPlaceholder />}
-        <div className={classes.scroll}>
+        <div className={classes.scroll} onClick={this.stopEditing}>
           <List travels={travels} editing={editing} />
         </div>
         <CreateTravelFAB moveUp={moveFabUp} />
@@ -66,6 +66,9 @@ class TravelsList extends React.Component<Props, State> {
     this.setState(prevState => ({
       editing: !prevState.editing
     }))
+  }
+  stopEditing = () => {
+    this.setState({ editing: false })
   }
 }
 
