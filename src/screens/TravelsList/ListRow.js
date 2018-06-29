@@ -57,7 +57,9 @@ class RowItem extends React.Component<Props> {
       </ListItem>
     )
   }
-  _deleteTravel = () => {
+  _deleteTravel = (event: MouseEvent) => {
+    event.stopPropagation()
+    event.preventDefault()
     this.props.deleteTravel(this.props.travel.id)
   }
 }
