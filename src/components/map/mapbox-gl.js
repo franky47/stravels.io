@@ -121,6 +121,25 @@ export const removePolylineLayer = (
   map.removeSource(id)
 }
 
+export const stackLayerUnder = (
+  map: MapObject,
+  target: ActivityID,
+  reference: ?ActivityID = null
+) => {
+  const targetLayerId = `polyline-${target}`
+  if (reference) {
+    const referenceLayerId = `polyline-${reference}-touch`
+    map.moveLayer(targetLayerId, referenceLayerId)
+    map.moveLayer(targetLayerId + '-outline', targetLayerId)
+    map.moveLayer(targetLayerId + '-touch', targetLayerId + '-outline')
+  } else {
+    // Move to the top of the stack
+    map.moveLayer(targetLayerId + '-touch')
+    map.moveLayer(targetLayerId + '-outline')
+    map.moveLayer(targetLayerId)
+  }
+}
+
 // -----------------------------------------------------------------------------
 
 export const fitToPath = (

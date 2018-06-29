@@ -94,14 +94,38 @@ class MapView extends React.Component<Props, State> {
     this.props.focusOn(index)
   }
 
-  _updatePolylines = (prevProps: Props): boolean => {
+  _updatePolylines = (prevProps: Props) => {
+    // Update contents (remove old, add new)
     const oldLayerIds = Array.from(new Set(prevProps.paths.map(p => p.id)))
     const newLayerIds = Array.from(new Set(this.props.paths.map(p => p.id)))
     const layersToAdd = newLayerIds.filter(id => oldLayerIds.indexOf(id) === -1)
     const layersToDel = oldLayerIds.filter(id => newLayerIds.indexOf(id) === -1)
     layersToAdd.forEach(this._addPolyline)
     layersToDel.forEach(this._removePolyline)
-    return layersToAdd.length > 0 || layersToDel.length > 0
+
+    // Update Z-order: Mapbox orders layers by negative Z-index (place under X)
+    // so copy & flip the paths array before iterating:
+    this.props.paths
+      .slice()
+      .reverse()
+      .reduce((previous, current, i) => {
+        if (!previous) {
+          return current // First element is our reference point
+        }
+        if (i === this.props.focusedIndex) {
+          return previous // Skip it, add it last
+        }
+        mapbox.stackLayerUnder(this.map, current.id, previous.id)
+        return current
+      }, null)
+
+    // Focused path gets on top of the stack
+    if (this.props.focusedIndex >= 0) {
+      mapbox.stackLayerUnder(
+        this.map,
+        this.props.paths[this.props.focusedIndex].id
+      )
+    }
   }
   _addPolyline = (id: ActivityID) => {
     const pathElement = this.props.paths.find(p => p.id === id)
