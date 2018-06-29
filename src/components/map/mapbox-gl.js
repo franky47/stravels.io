@@ -66,6 +66,7 @@ export const addPolylineLayer = (
     }
   })
   map.addLayer({
+    // Transparent larger layer for catching touch events
     id: layerId + '-touch',
     type: 'line',
     source: id,
@@ -80,6 +81,7 @@ export const addPolylineLayer = (
     }
   })
   map.addLayer({
+    // White outline / stroke to increase line contrast
     id: layerId + '-outline',
     type: 'line',
     source: id,
@@ -89,7 +91,9 @@ export const addPolylineLayer = (
     },
     paint: {
       'line-color': 'rgba(255, 255, 255, 0.75)',
-      'line-width': 7
+      'line-width': {
+        stops: [[8, 4], [10, 7]]
+      }
     }
   })
   map.addLayer({
@@ -102,7 +106,9 @@ export const addPolylineLayer = (
     },
     paint: {
       'line-color': color,
-      'line-width': 5
+      'line-width': {
+        stops: [[8, 3], [10, 5]]
+      }
     }
   })
   map.on('click', layerId + '-touch', featureClicked(focusOn))
