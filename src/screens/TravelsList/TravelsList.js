@@ -3,6 +3,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
+import { getTravelsRevChronoOrder } from 'state/accessors'
 
 // Material UI Components
 import { withStyles } from '@material-ui/core/styles'
@@ -73,7 +74,7 @@ class TravelsList extends React.Component<Props, State> {
 }
 
 const mapStateToProps = state => ({
-  travels: Object.values(state.travels)
+  travels: getTravelsRevChronoOrder(state)
 })
 
 export default connect(mapStateToProps)(withStyles(styles)(TravelsList))
