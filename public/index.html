@@ -36,6 +36,21 @@
     .jsonly {
       display: none;
     }
+
+    body,
+    html,
+    main#react-root {
+      height: 100%;
+      overflow: hidden;
+      background-color: #fff;
+    }
+
+    .screen {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
   </style>
 </head>
 
@@ -48,8 +63,8 @@
   <main id="react-root">
     <div class="noscript jsonly">
       Loading...
+    </div>
   </main>
-  </div>
   <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

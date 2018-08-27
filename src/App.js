@@ -19,7 +19,7 @@ import CreateTravel from 'screens/CreateTravel/CreateTravelContainer'
 // Material UI Theming
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Theme from 'theme'
-import 'App.css'
+// import 'App.css'
 
 class App extends React.Component {
   state = {

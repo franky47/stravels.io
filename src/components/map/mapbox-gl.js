@@ -1,7 +1,7 @@
 // @flow
 
 import { getMultiBoundingBox, getSingleBoundingBox } from 'lib/mapping'
-import './mapbox-gl.css'
+// import './mapbox-gl.css'
 
 // Types
 import type { Map as MapboxMap } from 'mapbox-gl'
@@ -22,6 +22,7 @@ export type PathElement = {
 
 export const createMap = async (container: HTMLElement | string): MapObject => {
   const mapboxgl = await import(/*webpackChunkName: 'map'*/ 'mapbox-gl')
+  await import(/*webpackChunkName: 'map'*/ './mapbox-gl.css')
   mapboxgl.accessToken = process.env.REACT_APP_MAPBOXGL_TOKEN
   return new mapboxgl.Map({
     container,
