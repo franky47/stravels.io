@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
+import Zoom from '@material-ui/core/Zoom'
 
 const styles = theme => ({
   button: {
@@ -38,24 +39,27 @@ const styles = theme => ({
 
 type Props = {
   +classes: { [key: string]: string },
-  +moveUp: boolean
+  +moveUp: boolean,
+  +hidden: boolean
 }
 
-const CreateTravelFAB = ({ classes, moveUp }: Props) => (
-  <Button
-    variant="fab"
-    color="secondary"
-    aria-label="add"
-    className={classNames({
-      [classes.button]: true,
-      [classes.fabMoveUp]: moveUp,
-      [classes.fabMoveDown]: !moveUp
-    })}
-    component={Link}
-    to="/create"
-  >
-    <AddIcon />
-  </Button>
+const CreateTravelFAB = ({ classes, moveUp, hidden }: Props) => (
+  <Zoom in={!hidden}>
+    <Button
+      variant="fab"
+      color="secondary"
+      aria-label="add"
+      className={classNames({
+        [classes.button]: true,
+        [classes.fabMoveUp]: moveUp,
+        [classes.fabMoveDown]: !moveUp
+      })}
+      component={Link}
+      to="/create"
+    >
+      <AddIcon />
+    </Button>
+  </Zoom>
 )
 
 export default withStyles(styles)(CreateTravelFAB)

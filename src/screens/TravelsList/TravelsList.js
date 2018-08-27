@@ -55,7 +55,7 @@ class TravelsList extends React.Component<Props, State> {
         <div className={classes.scroll} onClick={this.stopEditing}>
           <List travels={travels} editing={editing} />
         </div>
-        <CreateTravelFAB moveUp={moveFabUp} />
+        <CreateTravelFAB moveUp={moveFabUp} hidden={editing} />
       </section>
     )
   }
