@@ -47,7 +47,7 @@
     "react": "^16.2.0",
     "react-apollo": "^2.0.4",
     "react-dev-utils": "^5.0.0",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.3.3",
     "react-loadable": "^5.3.1",
     "react-media": "^1.8.0",
     "react-redux": "^5.0.7",
@@ -60,7 +60,8 @@
     "webpack": "3.11.0",
     "webpack-dev-server": "2.11.1",
     "webpack-manifest-plugin": "1.3.2",
-    "whatwg-fetch": "2.0.3"
+    "whatwg-fetch": "2.0.3",
+    "snyk": "^1.117.1"
   },
   "scripts": {
     "start": "node scripts/start.js",
@@ -71,7 +72,9 @@
     "deploy:staging": "surge -d https://pwa.stravels.io -p ./build",
     "deploy:prod": "surge -d https://stravels.io -p ./build",
     "release:staging": "yarn build && yarn fix:surge-prod && yarn deploy:staging",
-    "release": "yarn build && yarn fix:surge-prod && yarn deploy"
+    "release": "yarn build && yarn fix:surge-prod && yarn deploy",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "devDependencies": {
     "flow-bin": "^0.70.0",
@@ -122,5 +125,6 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  }
+  },
+  "snyk": true
 }
